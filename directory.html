@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Groups · San Francisco Primaries 2026 | Change.vote</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #fff; color: #111; }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: #fff; border-bottom: 1px solid #e5e7eb;
+      height: 56px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+    }
+    .nav-logo {
+      width: 36px; height: 36px; background: #d4191f; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 16px; letter-spacing: -0.5px;
+      flex-shrink: 0;
+    }
+    .nav-tabs {
+      display: flex; align-items: center;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .nav-tab {
+      padding: 0 20px; height: 56px;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 500; color: #6b7280;
+      text-decoration: none; border-bottom: 2px solid transparent;
+      cursor: pointer; white-space: nowrap;
+    }
+    .nav-tab.active { color: #111; font-weight: 600; border-bottom-color: #3b5bdb; }
+    .nav-tab svg { width: 16px; height: 16px; opacity: 0.7; }
+    .nav-avatar { width: 32px; height: 32px; background: #d1d5db; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: #fff; border-bottom: 1px solid #e5e7eb;
+      padding: 28px 24px 0;
+    }
+    .page-header-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb { font-size: 12px; color: #9ca3af; margin-bottom: 14px; }
+    .breadcrumb a { color: #6b7280; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .page-header-row {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      padding-bottom: 20px;
+    }
+    .page-title { font-size: 22px; font-weight: 800; color: #111; margin-bottom: 4px; }
+    .page-subtitle { font-size: 14px; color: #6b7280; }
+    .btn-create {
+      padding: 10px 20px; background: #f5c518; border: none; border-radius: 9px;
+      font-size: 14px; font-weight: 700; color: #111; cursor: pointer;
+      display: flex; align-items: center; gap: 7px; white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-create:hover { background: #e6b800; }
+
+    /* search + filters row */
+    .search-filter-row {
+      display: flex; align-items: center; gap: 12px;
+      padding-bottom: 0; margin-bottom: 0;
+    }
+    .search-box {
+      flex: 1; max-width: 340px;
+      display: flex; align-items: center; gap: 8px;
+      background: #f3f4f6; border-radius: 9px; padding: 9px 14px;
+      font-size: 14px; color: #9ca3af;
+    }
+    .search-box svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+    /* filter chips on their own row */
+    .filter-row {
+      display: flex; gap: 8px; align-items: center;
+      padding: 14px 0 0; overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .filter-row::-webkit-scrollbar { display: none; }
+    .chip {
+      padding: 6px 14px; border-radius: 100px; font-size: 13px; font-weight: 500;
+      border: 1.5px solid #e5e7eb; color: #374151; cursor: pointer; white-space: nowrap;
+      background: #fff;
+    }
+    .chip.active {
+      background: #111; color: #fff; border-color: #111;
+    }
+    .chip:hover:not(.active) { border-color: #d1d5db; background: #f9fafb; }
+
+    /* sub-nav underline tabs */
+    .subnav {
+      display: flex; border-bottom: 1px solid #e5e7eb; margin-top: 4px;
+    }
+    .subnav-tab {
+      padding: 12px 0; margin-right: 24px;
+      font-size: 14px; font-weight: 500; color: #6b7280;
+      border-bottom: 2px solid transparent; cursor: pointer;
+    }
+    .subnav-tab.active { color: #111; font-weight: 600; border-bottom-color: #3b5bdb; }
+
+    /* ── MAIN CONTENT ── */
+    .page-wrap { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: #9ca3af; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px; background: #f3f4f6;
+    }
+
+    /* ── FEATURED CARDS (wide) ── */
+    .featured-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-bottom: 40px;
+    }
+    .featured-card {
+      border: 1.5px solid #e5e7eb; border-radius: 14px; overflow: hidden;
+      background: #fff; display: flex; flex-direction: column;
+      transition: box-shadow 0.15s, border-color 0.15s;
+      cursor: pointer;
+    }
+    .featured-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-color: #d1d5db; }
+    .featured-card-top {
+      padding: 20px 20px 16px;
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .featured-avatar {
+      width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 24px;
+    }
+    .featured-meta { flex: 1; min-width: 0; }
+    .featured-name {
+      font-size: 15px; font-weight: 700; color: #111; margin-bottom: 2px;
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    }
+    .badge-verified {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: #eef2ff; color: #3b5bdb; border-radius: 100px;
+      font-size: 10px; font-weight: 700; padding: 2px 7px; white-space: nowrap;
+    }
+    .badge-community {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: #f0fdf4; color: #15803d; border-radius: 100px;
+      font-size: 10px; font-weight: 700; padding: 2px 7px; white-space: nowrap;
+    }
+    .featured-tagline { font-size: 13px; color: #6b7280; line-height: 1.4; margin-bottom: 10px; }
+    .featured-stats { display: flex; gap: 14px; font-size: 12px; color: #9ca3af; }
+    .featured-stats strong { color: #374151; }
+    .featured-card-bottom {
+      padding: 12px 20px 16px;
+      border-top: 1px solid #f3f4f6;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .featured-endorsement-preview {
+      font-size: 12px; color: #6b7280;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .endorsement-avatars { display: flex; }
+    .endorsement-avatar-mini {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid #fff; margin-right: -6px;
+      background: #d1d5db; font-size: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .btn-follow-sm {
+      padding: 6px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      border: none; cursor: pointer; flex-shrink: 0;
+    }
+    .btn-follow-sm.unfollow { background: #f3f4f6; color: #6b7280; }
+    .btn-follow-sm.follow { background: #f5c518; color: #111; }
+    .btn-follow-sm.following { background: #f3f4f6; color: #374151; }
+    .btn-follow-sm.following::before { content: '✓ '; }
+
+    /* ── GROUP GRID ── */
+    .group-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .group-card {
+      border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
+      background: #fff; padding: 16px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: box-shadow 0.15s, border-color 0.15s; cursor: pointer;
+    }
+    .group-card:hover { box-shadow: 0 3px 14px rgba(0,0,0,0.07); border-color: #d1d5db; }
+    .group-card-top { display: flex; gap: 12px; align-items: flex-start; }
+    .group-card-avatar {
+      width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+    }
+    .group-card-meta { flex: 1; min-width: 0; }
+    .group-card-name {
+      font-size: 14px; font-weight: 700; color: #111; margin-bottom: 2px;
+      display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
+      line-height: 1.3;
+    }
+    .group-card-tagline { font-size: 12px; color: #6b7280; line-height: 1.4; }
+    .group-card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 2px;
+    }
+    .group-card-stats { font-size: 12px; color: #9ca3af; }
+    .group-card-stats strong { color: #374151; }
+
+    /* ── START A GROUP CTA ── */
+    .start-group-cta {
+      margin-top: 48px;
+      background: #f9fafb; border: 1.5px dashed #d1d5db; border-radius: 16px;
+      padding: 36px 32px; text-align: center;
+    }
+    .start-group-cta h2 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+    .start-group-cta p { font-size: 14px; color: #6b7280; max-width: 480px; margin: 0 auto 20px; line-height: 1.6; }
+    .btn-create-lg {
+      padding: 12px 28px; background: #f5c518; border: none; border-radius: 10px;
+      font-size: 15px; font-weight: 700; color: #111; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-create-lg:hover { background: #e6b800; }
+
+    /* ── ACTIVE Q&A INDICATOR ── */
+    .qa-dot {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; font-weight: 600; color: #3b5bdb;
+    }
+    .qa-dot::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%; background: #3b5bdb;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">C.</div>
+  <div class="nav-tabs">
+    <a class="nav-tab" href="#">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+      Ballot
+    </a>
+    <a class="nav-tab" href="#">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 4v4l3 2"/></svg>
+      Guides
+    </a>
+    <a class="nav-tab active" href="directory.html">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h10M3 8h7M3 12h5"/><circle cx="13" cy="11" r="2.5"/></svg>
+      Groups
+    </a>
+  </div>
+  <div class="nav-avatar"></div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="breadcrumb"><a href="https://www.change.vote/whats-on-the-ballot/san-francisco-california-us.sfp/San-Francisco-Primaries-2026.sfp" target="_blank">San Francisco Primaries 2026</a> › Groups</div>
+    <div class="page-header-row">
+      <div>
+        <div class="page-title">Groups following this election</div>
+        <div class="page-subtitle">Organizations and community groups sharing their views on the SF June 2026 ballot</div>
+      </div>
+      <button class="btn-create">+ Start a group</button>
+    </div>
+
+    <div class="search-filter-row">
+      <div class="search-box">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4"/><path d="M11 11l2.5 2.5"/></svg>
+        Search groups…
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <div class="chip active">All</div>
+      <div class="chip">Verified orgs</div>
+      <div class="chip">Community groups</div>
+      <div class="chip">Housing</div>
+      <div class="chip">Labor</div>
+      <div class="chip">Environment</div>
+      <div class="chip">Education</div>
+      <div class="chip">Public safety</div>
+      <div class="chip">Neighborhood</div>
+      <div class="chip">LGBTQ+</div>
+      <div class="chip">Small business</div>
+    </div>
+
+    <div class="subnav">
+      <div class="subnav-tab active">All groups <span style="color:#9ca3af;font-weight:400;"> · 38</span></div>
+      <div class="subnav-tab">Following <span style="color:#9ca3af;font-weight:400;"> · 3</span></div>
+      <div class="subnav-tab">Active Q&amp;As <span style="color:#3b5bdb;font-weight:600;"> · 4</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="page-wrap">
+
+  <!-- FEATURED -->
+  <div class="section-label">Featured this election</div>
+  <div class="featured-grid">
+
+    <!-- SF Tenants Union -->
+    <div class="featured-card" onclick="window.location='group.html'" style="cursor:pointer;">
+      <div class="featured-card-top">
+        <div class="featured-avatar" style="background:#dbeafe;">🏠</div>
+        <div class="featured-meta">
+          <div class="featured-name">
+            SF Tenants Union
+            <span class="badge-verified">✦ Verified</span>
+          </div>
+          <div class="featured-tagline">Fighting for renters' rights since 1970. Independent voter guide for housing-focused voters.</div>
+          <div class="featured-stats">
+            <span><strong>1,847</strong> followers</span>
+            <span><strong>12</strong> endorsements</span>
+            <span class="qa-dot">Q&amp;A May 28</span>
+          </div>
+        </div>
+      </div>
+      <div class="featured-card-bottom">
+        <div class="featured-endorsement-preview">
+          <div class="endorsement-avatars">
+            <div class="endorsement-avatar-mini" style="background:#bfdbfe;">👩</div>
+            <div class="endorsement-avatar-mini" style="background:#bbf7d0;">🧑</div>
+            <div class="endorsement-avatar-mini" style="background:#fef9c3;">👨</div>
+          </div>
+          <span>3 candidates endorsed</span>
+        </div>
+        <button class="btn-follow-sm following">Following</button>
+      </div>
+    </div>
+
+    <!-- Sierra Club SF -->
+    <div class="featured-card">
+      <div class="featured-card-top">
+        <div class="featured-avatar" style="background:#dcfce7;">🌲</div>
+        <div class="featured-meta">
+          <div class="featured-name">
+            Sierra Club SF
+            <span class="badge-verified">✦ Verified</span>
+          </div>
+          <div class="featured-tagline">Environmental voter guide for San Francisco. Endorsed by 50,000 local members.</div>
+          <div class="featured-stats">
+            <span><strong>4,210</strong> followers</span>
+            <span><strong>9</strong> endorsements</span>
+          </div>
+        </div>
+      </div>
+      <div class="featured-card-bottom">
+        <div class="featured-endorsement-preview">
+          <div class="endorsement-avatars">
+            <div class="endorsement-avatar-mini" style="background:#bbf7d0;">👨</div>
+            <div class="endorsement-avatar-mini" style="background:#bfdbfe;">👩</div>
+          </div>
+          <span>2 candidates endorsed</span>
+        </div>
+        <button class="btn-follow-sm follow">+ Follow</button>
+      </div>
+    </div>
+
+    <!-- SF Moms -->
+    <div class="featured-card" style="border-color:#d1fae5;">
+      <div class="featured-card-top">
+        <div class="featured-avatar" style="background:#fef9c3;">🌻</div>
+        <div class="featured-meta">
+          <div class="featured-name">
+            SF Moms for Safe Schools
+            <span class="badge-community">Community</span>
+          </div>
+          <div class="featured-tagline">Parents from across SF neighborhoods talking about school board, public safety &amp; family-first candidates.</div>
+          <div class="featured-stats">
+            <span><strong>612</strong> followers</span>
+            <span><strong>5</strong> endorsements</span>
+            <span class="qa-dot">Q&amp;A Jun 4</span>
+          </div>
+        </div>
+      </div>
+      <div class="featured-card-bottom">
+        <div class="featured-endorsement-preview">
+          <div class="endorsement-avatars">
+            <div class="endorsement-avatar-mini" style="background:#fef9c3;">👩</div>
+            <div class="endorsement-avatar-mini" style="background:#fce7f3;">🧑</div>
+          </div>
+          <span>2 Q&amp;As scheduled</span>
+        </div>
+        <button class="btn-follow-sm follow">+ Follow</button>
+      </div>
+    </div>
+
+  </div><!-- /featured-grid -->
+
+  <!-- ALL GROUPS -->
+  <div class="section-label" style="margin-bottom:18px;">All groups · 38</div>
+  <div class="group-grid">
+
+    <!-- SEIU Local 1021 -->
+    <div class="group-card">
+      <div class="group-card-top">
+        <div class="group-card-avatar" style="background:#fee2e2;">✊</div>
+        <div class="group-card-meta">
+          <div class="group-card-name">SEIU Local 1021 <span class="badge-verified">✦ Verified</span></div>
+          <div class="group-card-tagline">SF's largest public sector union. Labor voter guide for 2026.</div>
+        </div>
+      </div>
+      <div class="group-card-footer">
+        <div class="group-card-stats"><strong>3,104</strong> followers · <strong>11</strong> endorsements</div>
+        <button class="btn-follow-sm follow">+ Follow</button>
+      </div>
+    </div>
+
+    <!-- League of Women Voters -->
+    <div class="group-card">
+      <div class="group-card-top">
+        <div class="group-card-avatar" style="background:#ede9fe;">⚖️</div>
+        <div class="group-card-meta">
+          <div class="group-card-name">League of Women Voters SF <span class="badge-verified">✦ Verified</span></div>
+          <div class="group-card-tagline">Nonpartisan voter education &amp; candidate forums since 1920.</div>
+        </div>
+      </div>
+      <div class="group-card-footer">
+        <div class="group-card-stats"><strong>2,381</strong> followers · forums</div>
+        <button class="btn-follow-sm following">Following</button>
+      </div>
+    </div>
+
+    <!-- Planned Parenthood Advocates -->
+    <div class="group-card">
+      <div class="group-card-top">
+        <div class="group-card-avatar" style="background:#fce7f3;">💗</div>
+        <div class="group-card-meta">
+          <div class="group-card-name">Planned Parenthood Advocates <span class="badge-verified">✦ Verified</span></div>
+          <div class="group-card-tagline">Reproductive rights voter guide for SF &amp; Bay Area.</div>
+        </div>
+      </div>
+      <div class="group-card-footer">
+        <div class="group-card-stats"><strong>1,920</strong> followers · <strong>8</strong> endorsements</div>
+        <button class="btn-follow-sm follow">+ Follow</button>
+      </div>
+    </div>
+
+    <!-- SF Young Republicans -->
+    <div class="group-card">
+      <div class="group-card-top">
+        <div class="group-card-avatar" style="background:#fee2e2;">🦅</div>
+        <div class="group-card-meta">
+          <div class="group-card-name">SF Young Republicans <span class="badge-verified">✦ Verified</span></div>
+          <div class="group-card-tagline">Conservative voter guide for SF. Fiscal responsibility &amp; public safety first.</div>
+        </div>
+      </div>
+      <div class="group-card-footer">
+        <div class="group-card-stats"><strong>844</strong> followers · <strong>7</strong> endorsements</div>
+        <button class="btn-follow-sm follow">+ Follow</button>
+      </div>
+    </div>
+
+    <!-- SF YIMBY -->
+    <div class="group-card">
+      <div class="group-card-top">
+        <div class="group-card-avatar" style="background:#fef9c3;">🏗️</div>
+        <div class="group-card-meta">
+          <div class="group-card-name">SF YIMBY <span class="badge-verified">✦ Verified</span></div>
+          <div class="group-card-tagline">Yes In My Backyard — pro-housing &amp; pro-abundance voter guide.</div>
+        </div>
+      </div>
+      <div class="group-card-footer">
+        <div class="group-card-stats"><strong>1,135</strong> followers · <strong>10</strong> endorsements</div>
+        <button class="btn-follow-sm follow">+ Follow</button>
+      </div>
+    </div>
+
+    <!-- Mission District Renters -->
+    <div class="group-card">
+      <div class="group-card-top">
+        <div class="group-card-avatar" style="background:#fef3c7;">🌮</div>
+        <div class="group-card-meta">
+          <div class="group-card-name">Mission District Renters <span class="badge-community">Community</span></div>
+          <div class="group-card-tagline">Neighbors organizing around displacement, evictions &amp; rent.</div>
+        </div>
+      </div>
+      <div class="group-card-footer">
+        <div class="group-card-stats"><strong>389</strong> followers · <strong>4</strong> endorsements</div>
+        <button class="btn-follow-sm follow">+ Follow</button>
+      </div>
+    </div>
+
+    <!-- Castro LGBTQ+ Voters -->
+    <div class="group-card">
+      <div class="group-card-top">
+        <div class="group-card-avatar" style="background:#fce7f3;">🏳️‍🌈</div>
+        <div class="group-card-meta">
+          <div class="group-card-name">Castro LGBTQ+ Voters <span class="badge-community">Community</span></div>
+          <div class="group-card-tagline">Queer-centered perspectives on SF candidates &amp; measures.</div>
+        </div>
+      </div>
+      <div class="group-card-footer">
+        <div class="group-card-stats"><strong>721</strong> followers · <strong>6</strong> endorsements</div>
+        <button class="btn-follow-sm follow">+ Follow</button>
+      </div>
+    </div>
+
+    <!-- Chinatown Civic Voice -->
+    <div class="group-card">
+      <div class="group-card-top">
+        <div class="group-card-avatar" style="background:#fee2e2;">🏮</div>
+        <div class="group-card-meta">
+          <div class="group-card-name">Chinatown Civic Voice <span class="badge-community">Community</span></div>
+          <div class="group-card-tagline">Amplifying Chinatown &amp; SoMa Asian-American voters in SF elections.</div>
+        </div>
+      </div>
+      <div class="group-card-footer">
+        <div class="group-card-stats"><strong>503</strong> followers · <strong>5</strong> endorsements</div>
+        <button class="btn-follow-sm follow">+ Follow</button>
+      </div>
+    </div>
+
+    <!-- Outer Sunset Neighbors -->
+    <div class="group-card">
+      <div class="group-card-top">
+        <div class="group-card-avatar" style="background:#e0f2fe;">🌊</div>
+        <div class="group-card-meta">
+          <div class="group-card-name">Outer Sunset Neighbors <span class="badge-community">Community</span></div>
+          <div class="group-card-tagline">Ocean Beach to Twin Peaks — hyper-local takes on who to vote for.</div>
+        </div>
+      </div>
+      <div class="group-card-footer">
+        <div class="group-card-stats"><strong>298</strong> followers · <strong>3</strong> endorsements</div>
+        <button class="btn-follow-sm follow">+ Follow</button>
+      </div>
+    </div>
+
+    <!-- SF Small Business Owners -->
+    <div class="group-card">
+      <div class="group-card-top">
+        <div class="group-card-avatar" style="background:#fef9c3;">☕</div>
+        <div class="group-card-meta">
+          <div class="group-card-name">SF Small Biz Owners <span class="badge-community">Community</span></div>
+          <div class="group-card-tagline">Independent business owners voting for safer streets &amp; saner policy.</div>
+        </div>
+      </div>
+      <div class="group-card-footer">
+        <div class="group-card-stats"><strong>477</strong> followers · <strong>5</strong> endorsements</div>
+        <button class="btn-follow-sm following">Following</button>
+      </div>
+    </div>
+
+    <!-- Tenderloin Residents -->
+    <div class="group-card">
+      <div class="group-card-top">
+        <div class="group-card-avatar" style="background:#f0fdf4;">🌆</div>
+        <div class="group-card-meta">
+          <div class="group-card-name">Tenderloin Residents United <span class="badge-community">Community</span></div>
+          <div class="group-card-tagline">Voices from SF's most under-represented neighborhood.</div>
+        </div>
+      </div>
+      <div class="group-card-footer">
+        <div class="group-card-stats"><strong>214</strong> followers · <strong>2</strong> endorsements</div>
+        <button class="btn-follow-sm follow">+ Follow</button>
+      </div>
+    </div>
+
+    <!-- Haight-Ashbury Block Club -->
+    <div class="group-card">
+      <div class="group-card-top">
+        <div class="group-card-avatar" style="background:#fce7f3;">☮️</div>
+        <div class="group-card-meta">
+          <div class="group-card-name">Haight-Ashbury Block Club <span class="badge-community">Community</span></div>
+          <div class="group-card-tagline">Neighborhood preservation, parks &amp; community safety in the Upper Haight.</div>
+        </div>
+      </div>
+      <div class="group-card-footer">
+        <div class="group-card-stats"><strong>163</strong> followers · <strong>2</strong> endorsements</div>
+        <button class="btn-follow-sm follow">+ Follow</button>
+      </div>
+    </div>
+
+  </div><!-- /group-grid -->
+
+  <!-- START A GROUP CTA -->
+  <div class="start-group-cta">
+    <div style="font-size:32px;margin-bottom:12px;">🗳️</div>
+    <h2>Don't see your group here?</h2>
+    <p>Any SF organization or community group can claim a page on Change.vote to share your voting guide, post opinions, and call candidates into Q&amp;A sessions — for free.</p>
+    <button class="btn-create-lg">+ Start a group</button>
+    <div style="margin-top:14px;font-size:13px;color:#9ca3af;">
+      Already have a group? <a href="#" style="color:#3b5bdb;text-decoration:none;font-weight:500;">Claim your page →</a>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+</body>
+</html>

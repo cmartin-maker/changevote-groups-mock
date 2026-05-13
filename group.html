@@ -1,0 +1,2161 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SF Tenants Union · Groups | Change.vote</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #fff; color: #111; }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+    }
+    .nav-logo {
+      width: 36px; height: 36px; background: #d4191f; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 16px; letter-spacing: -0.5px;
+      flex-shrink: 0;
+    }
+    .nav-tabs {
+      display: flex; align-items: center; gap: 0;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .nav-tab {
+      padding: 0 20px; height: 56px;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 500; color: #6b7280;
+      text-decoration: none; border-bottom: 2px solid transparent;
+      cursor: pointer; transition: color 0.15s;
+      white-space: nowrap;
+    }
+    .nav-tab:hover { color: #111; }
+    .nav-tab.active { color: #111; border-bottom-color: #3b5bdb; font-weight: 600; }
+    .nav-tab svg { width: 16px; height: 16px; opacity: 0.7; }
+    .nav-avatar {
+      width: 32px; height: 32px; background: #d1d5db; border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      padding: 12px 24px;
+      font-size: 12px; color: #9ca3af;
+      border-bottom: 1px solid #f3f4f6;
+      max-width: 1100px; margin: 0 auto; width: 100%;
+    }
+    .breadcrumb a { color: #6b7280; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-wrap { max-width: 1100px; margin: 0 auto; padding: 12px 24px; font-size: 12px; color: #9ca3af; }
+    .breadcrumb-wrap a { color: #6b7280; text-decoration: none; }
+    .breadcrumb-wrap a:hover { text-decoration: underline; }
+
+    /* ── CONTENT WRAPPER ── */
+    .page-wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── GROUP HEADER ── */
+    .group-header {
+      padding: 32px 0 0;
+      display: flex; align-items: flex-start; gap: 20px;
+    }
+    .group-avatar {
+      width: 72px; height: 72px; border-radius: 16px; flex-shrink: 0;
+      background: #1e3a5f;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+    }
+    .group-meta { flex: 1; }
+    .group-meta h1 {
+      font-size: 24px; font-weight: 800; color: #111; line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .group-tagline { font-size: 14px; color: #6b7280; margin-bottom: 10px; }
+    .group-stats { display: flex; gap: 16px; font-size: 13px; color: #6b7280; }
+    .group-stats strong { color: #111; }
+    .group-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; padding-top: 4px; }
+    .btn-follow {
+      padding: 8px 20px; background: #f5c518; border: none; border-radius: 8px;
+      font-size: 14px; font-weight: 600; color: #111; cursor: pointer;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-follow:hover { background: #e6b800; }
+    .btn-share {
+      padding: 8px 14px; background: #fff; border: 1.5px solid #e5e7eb;
+      border-radius: 8px; font-size: 14px; font-weight: 500; color: #6b7280;
+      cursor: pointer;
+    }
+    .btn-share:hover { border-color: #d1d5db; color: #111; }
+    .verified-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: #eef2ff; color: #3b5bdb; border-radius: 100px;
+      font-size: 11px; font-weight: 600; padding: 2px 8px; margin-left: 6px;
+    }
+    .verified-badge svg { width: 11px; height: 11px; }
+
+    /* ── GROUP SUB-NAV ── */
+    .group-subnav {
+      display: flex; gap: 0; border-bottom: 1px solid #e5e7eb;
+      margin-top: 20px;
+    }
+    .subnav-tab {
+      padding: 12px 16px; font-size: 14px; font-weight: 500; color: #6b7280;
+      border-bottom: 2px solid transparent; cursor: pointer;
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      transition: color 0.15s;
+    }
+    .subnav-tab:hover { color: #111; }
+    .subnav-tab.active { color: #111; font-weight: 600; border-bottom-color: #3b5bdb; }
+    .subnav-count {
+      background: #f3f4f6; border-radius: 100px;
+      font-size: 11px; font-weight: 600; color: #6b7280;
+      padding: 1px 7px;
+    }
+
+    /* ── TWO-COL LAYOUT ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 32px;
+      padding: 28px 0 60px;
+      align-items: start;
+    }
+
+    /* ── Q&A SESSION BANNER ── */
+    .qa-banner {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a9e 100%);
+      border-radius: 14px; padding: 20px 24px;
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 20px; color: #fff;
+    }
+    .qa-banner-icon { font-size: 36px; flex-shrink: 0; }
+    .qa-banner-text h3 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .qa-banner-text p { font-size: 13px; opacity: 0.8; line-height: 1.4; }
+    .qa-banner-action { margin-left: auto; flex-shrink: 0; }
+    .btn-qa {
+      padding: 9px 18px; background: #f5c518; border: none; border-radius: 8px;
+      font-size: 13px; font-weight: 700; color: #111; cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-qa:hover { background: #e6b800; }
+
+    /* ── FEED CARDS ── */
+    .feed-card {
+      border: 1px solid #e5e7eb; border-radius: 12px;
+      margin-bottom: 16px; overflow: hidden; background: #fff;
+    }
+    .feed-card-body { padding: 18px 20px; }
+    .post-author { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .post-avatar {
+      width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 700; color: #fff;
+    }
+    .post-author-info { }
+    .post-author-name { font-size: 14px; font-weight: 600; color: #111; }
+    .post-author-name .group-tag {
+      font-size: 12px; font-weight: 500; color: #3b5bdb;
+      background: #eef2ff; border-radius: 4px; padding: 1px 6px; margin-left: 6px;
+    }
+    .post-meta { font-size: 12px; color: #9ca3af; margin-top: 1px; }
+    .post-title { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; line-height: 1.35; }
+    .post-body { font-size: 14px; color: #374151; line-height: 1.6; margin-bottom: 14px; }
+    .candidate-embed {
+      border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .candidate-embed-inner {
+      padding: 12px 16px; background: #f9fafb;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .candidate-embed-photo {
+      width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+      object-fit: cover; background: #d1d5db;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .candidate-embed-meta { flex: 1; }
+    .candidate-embed-stance {
+      font-size: 11px; font-weight: 600; color: #16a34a; text-transform: uppercase;
+      letter-spacing: 0.04em; margin-bottom: 2px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .candidate-embed-stance.opposing { color: #dc2626; }
+    .candidate-embed-name { font-size: 14px; font-weight: 700; color: #111; }
+    .party-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px; background: #3b5bdb; border-radius: 50%;
+      font-size: 10px; font-weight: 700; color: #fff; margin-left: 4px;
+      vertical-align: middle;
+    }
+    .party-badge.r { background: #dc2626; }
+    .candidate-embed-race { font-size: 12px; color: #6b7280; }
+    .candidate-embed-arrow {
+      color: #9ca3af; font-size: 18px; flex-shrink: 0;
+    }
+    .post-footer { display: flex; align-items: center; gap: 16px; padding-top: 4px; }
+    .vote-btn {
+      display: flex; align-items: center; gap: 5px;
+      background: none; border: none; cursor: pointer;
+      font-size: 14px; font-weight: 500; color: #6b7280;
+      padding: 4px 8px; border-radius: 6px;
+    }
+    .vote-btn:hover { background: #f3f4f6; color: #111; }
+    .vote-btn svg { width: 16px; height: 16px; }
+    .comment-btn {
+      display: flex; align-items: center; gap: 5px;
+      background: none; border: none; cursor: pointer;
+      font-size: 14px; font-weight: 500; color: #6b7280; padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .comment-btn:hover { background: #f3f4f6; color: #111; }
+    .share-btn { margin-left: auto; color: #9ca3af; cursor: pointer; font-size: 14px; }
+
+    /* ── Q&A SESSION CARD in feed ── */
+    .qa-session-card {
+      border: 1.5px solid #3b5bdb; border-radius: 12px;
+      margin-bottom: 16px; overflow: hidden; background: #fff;
+    }
+    .qa-session-header {
+      background: #eef2ff; padding: 12px 18px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .qa-session-header .label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: #3b5bdb;
+    }
+    .qa-session-body { padding: 18px 20px; }
+    .qa-session-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .qa-session-body .desc { font-size: 14px; color: #374151; line-height: 1.5; margin-bottom: 16px; }
+    .qa-candidate-list { display: flex; flex-direction: column; gap: 10px; }
+    .qa-candidate-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; background: #f9fafb; border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    .qa-candidate-photo {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: #d1d5db; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+    }
+    .qa-candidate-info { flex: 1; }
+    .qa-candidate-name { font-size: 14px; font-weight: 600; }
+    .qa-candidate-race { font-size: 12px; color: #6b7280; }
+    .qa-status {
+      font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 100px;
+      flex-shrink: 0;
+    }
+    .qa-status.invited { background: #fef9c3; color: #92400e; }
+    .qa-status.confirmed { background: #dcfce7; color: #166534; }
+    .qa-status.pending { background: #f3f4f6; color: #6b7280; }
+    .qa-session-footer {
+      padding: 12px 20px; border-top: 1px solid #f3f4f6;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .qa-session-footer .date { font-size: 13px; color: #6b7280; display: flex; align-items: center; gap: 6px; }
+    .btn-rsvp {
+      padding: 8px 18px; background: #3b5bdb; border: none; border-radius: 8px;
+      color: #fff; font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .btn-rsvp:hover { background: #2f4abf; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { display: flex; flex-direction: column; gap: 16px; }
+    .sidebar-card {
+      border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
+    }
+    .sidebar-card-header {
+      padding: 14px 18px; border-bottom: 1px solid #f3f4f6;
+      font-size: 13px; font-weight: 700; color: #111;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sidebar-card-header a { font-size: 12px; font-weight: 500; color: #3b5bdb; text-decoration: none; }
+    .sidebar-card-header a:hover { text-decoration: underline; }
+    .sidebar-card-body { padding: 14px 18px; }
+
+    /* voting guide in sidebar */
+    .guide-race { margin-bottom: 14px; }
+    .guide-race:last-child { margin-bottom: 0; }
+    .guide-race-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #9ca3af; margin-bottom: 8px; }
+    .guide-pick {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 10px; background: #f0fdf4; border-radius: 8px;
+      border: 1px solid #bbf7d0;
+    }
+    .guide-pick-photo {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #d1d5db; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 13px;
+    }
+    .guide-pick-name { font-size: 13px; font-weight: 600; color: #111; }
+    .guide-pick-check { margin-left: auto; color: #16a34a; font-size: 16px; }
+    .guide-oppose {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 10px; background: #fff1f2; border-radius: 8px;
+      border: 1px solid #fecdd3; margin-top: 6px;
+    }
+    .guide-oppose-name { font-size: 13px; font-weight: 600; color: #111; }
+    .guide-oppose-x { margin-left: auto; color: #dc2626; font-size: 16px; }
+
+    /* members in sidebar */
+    .member-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid #f3f4f6;
+    }
+    .member-row:last-child { border-bottom: none; }
+    .member-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: #fff;
+    }
+    .member-name { font-size: 13px; font-weight: 500; color: #111; }
+    .member-handle { font-size: 12px; color: #9ca3af; }
+    .member-mod { font-size: 11px; font-weight: 600; color: #7c3aed; background: #f5f3ff; padding: 2px 6px; border-radius: 4px; margin-left: auto; }
+
+    /* about sidebar */
+    .about-row { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 10px; font-size: 13px; color: #374151; }
+    .about-row:last-child { margin-bottom: 0; }
+    .about-row .icon { flex-shrink: 0; margin-top: 1px; }
+
+    /* ── SECTION HEADING ── */
+    .section-heading { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #9ca3af; margin-bottom: 14px; }
+
+    /* ── TAB PANELS ── */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Q&A TAB FULL VIEW ── */
+    .qa-full-session {
+      border: 1.5px solid #3b5bdb; border-radius: 14px; overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .qa-full-header {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a9e 100%);
+      padding: 20px 24px; color: #fff;
+    }
+    .qa-full-header .label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; opacity: 0.7; margin-bottom: 6px;
+    }
+    .qa-full-header h2 { font-size: 18px; font-weight: 800; margin-bottom: 6px; line-height: 1.3; }
+    .qa-full-header .meta { font-size: 13px; opacity: 0.8; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .qa-full-body { padding: 20px 24px; }
+    .qa-section-title {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: #9ca3af; margin-bottom: 12px;
+    }
+    .qa-candidates-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .qa-candidate-full {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px; background: #f9fafb;
+      border-radius: 10px; border: 1px solid #e5e7eb;
+    }
+    .qa-candidate-full-photo {
+      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+      background: #e5e7eb;
+    }
+    .qa-candidate-full-info { flex: 1; }
+    .qa-candidate-full-name { font-size: 14px; font-weight: 700; }
+    .qa-candidate-full-race { font-size: 12px; color: #6b7280; margin-top: 1px; }
+    .qa-status-lg {
+      font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 100px; flex-shrink: 0;
+    }
+    .qa-status-lg.confirmed { background: #dcfce7; color: #166534; }
+    .qa-status-lg.invited { background: #fef9c3; color: #92400e; cursor: pointer; }
+    .qa-status-lg.invited:hover { background: #fde68a; }
+
+    /* Questions section */
+    .questions-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .question-card {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 12px 14px; border: 1px solid #e5e7eb; border-radius: 10px;
+      background: #fff;
+    }
+    .question-upvote {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      flex-shrink: 0; padding-top: 2px;
+    }
+    .upvote-btn {
+      background: none; border: 1.5px solid #e5e7eb; border-radius: 6px;
+      width: 32px; height: 28px; cursor: pointer; font-size: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #6b7280;
+    }
+    .upvote-btn:hover { border-color: #3b5bdb; color: #3b5bdb; background: #eef2ff; }
+    .upvote-btn.voted { border-color: #3b5bdb; color: #3b5bdb; background: #eef2ff; }
+    .upvote-count { font-size: 12px; font-weight: 700; color: #374151; }
+    .question-text { flex: 1; font-size: 14px; color: #111; line-height: 1.5; }
+    .question-meta { font-size: 12px; color: #9ca3af; margin-top: 4px; }
+    .question-top-badge {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: #d97706; background: #fef9c3;
+      padding: 2px 6px; border-radius: 4px; margin-left: 6px;
+    }
+
+    /* Question submit box */
+    .question-submit {
+      border: 1.5px solid #e5e7eb; border-radius: 10px; overflow: hidden;
+    }
+    .question-submit textarea {
+      width: 100%; padding: 14px 16px; border: none; outline: none; resize: none;
+      font-family: inherit; font-size: 14px; color: #111; line-height: 1.5;
+      background: #fff; min-height: 80px;
+    }
+    .question-submit textarea::placeholder { color: #9ca3af; }
+    .question-submit-footer {
+      padding: 10px 14px; background: #f9fafb; border-top: 1px solid #f3f4f6;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .question-submit-footer .hint { font-size: 12px; color: #9ca3af; }
+    .btn-submit-q {
+      padding: 7px 18px; background: #3b5bdb; border: none; border-radius: 7px;
+      color: #fff; font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .btn-submit-q:hover { background: #2f4abf; }
+
+    /* RSVP bar */
+    .rsvp-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px; background: #f9fafb; border-top: 1px solid #e5e7eb;
+    }
+    .rsvp-bar .info { font-size: 13px; color: #374151; }
+    .rsvp-bar .info strong { color: #111; }
+    .btn-rsvp-lg {
+      padding: 10px 24px; background: #f5c518; border: none; border-radius: 9px;
+      font-size: 14px; font-weight: 700; color: #111; cursor: pointer;
+    }
+    .btn-rsvp-lg:hover { background: #e6b800; }
+
+    /* Past session */
+    .qa-past-session {
+      border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .qa-past-header {
+      background: #f9fafb; padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .qa-past-header .label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: #9ca3af; margin-bottom: 4px;
+    }
+    .qa-past-header h3 { font-size: 15px; font-weight: 700; color: #111; }
+    .btn-watch {
+      padding: 8px 18px; background: #fff; border: 1.5px solid #3b5bdb;
+      border-radius: 8px; color: #3b5bdb; font-size: 13px; font-weight: 600;
+      cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-watch:hover { background: #eef2ff; }
+    .qa-past-body { padding: 20px 24px; }
+    .past-participant {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+    }
+    .past-participant-photo {
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      background: #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 16px;
+    }
+    .past-participant-name { font-size: 14px; font-weight: 600; }
+    .past-participant-attended {
+      font-size: 12px; font-weight: 600; color: #16a34a;
+      background: #dcfce7; padding: 3px 8px; border-radius: 100px; margin-left: auto;
+    }
+    .past-participant-absent {
+      font-size: 12px; font-weight: 600; color: #9ca3af;
+      background: #f3f4f6; padding: 3px 8px; border-radius: 100px; margin-left: auto;
+    }
+    .qa-transcript { margin-top: 16px; }
+    .transcript-q {
+      padding: 12px 14px; background: #f0f4ff; border-radius: 8px;
+      border-left: 3px solid #3b5bdb; margin-bottom: 8px;
+    }
+    .transcript-q .q-label { font-size: 11px; font-weight: 700; color: #3b5bdb; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .transcript-q .q-text { font-size: 13px; color: #111; font-weight: 500; }
+    .transcript-a {
+      padding: 10px 14px 10px 20px; margin-bottom: 16px;
+    }
+    .transcript-a .a-label {
+      font-size: 11px; font-weight: 700; color: #6b7280; text-transform: uppercase;
+      letter-spacing: 0.05em; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;
+    }
+    .transcript-a .a-text { font-size: 13px; color: #374151; line-height: 1.6; }
+    .show-more-link {
+      text-align: center; padding: 12px 0; font-size: 13px; font-weight: 600;
+      color: #3b5bdb; cursor: pointer; border-top: 1px solid #f3f4f6;
+    }
+    .show-more-link:hover { text-decoration: underline; }
+
+    /* ── VOTING GUIDE TAB ── */
+    .guide-filter-row {
+      display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap;
+    }
+    .guide-chip {
+      padding: 6px 14px; border-radius: 100px; font-size: 13px; font-weight: 500;
+      border: 1.5px solid #e5e7eb; color: #374151; cursor: pointer; background: #fff;
+    }
+    .guide-chip.active { background: #111; color: #fff; border-color: #111; }
+    .guide-chip:hover:not(.active) { background: #f9fafb; border-color: #d1d5db; }
+
+    .guide-section { margin-bottom: 32px; }
+    .guide-section-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    }
+    .guide-section-icon {
+      width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 14px;
+    }
+    .guide-section-title { font-size: 13px; font-weight: 800; color: #111; text-transform: uppercase; letter-spacing: 0.05em; }
+    .guide-section-count { font-size: 12px; color: #9ca3af; font-weight: 400; text-transform: none; letter-spacing: 0; margin-left: 4px; }
+
+    .guide-race-card {
+      border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
+      margin-bottom: 12px; background: #fff;
+    }
+    .guide-race-header {
+      padding: 10px 18px; background: #f9fafb; border-bottom: 1px solid #f3f4f6;
+      font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .guide-race-body { padding: 16px 18px; }
+
+    .guide-pick-row {
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .guide-pick-row + .guide-pick-row { margin-top: 14px; padding-top: 14px; border-top: 1px solid #f3f4f6; }
+    .guide-pick-avatar {
+      width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+      background: #f3f4f6;
+    }
+    .guide-pick-info { flex: 1; min-width: 0; }
+    .guide-pick-name-row {
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 2px;
+    }
+    .guide-pick-fullname { font-size: 15px; font-weight: 700; color: #111; }
+    .guide-pick-race-sub { font-size: 12px; color: #9ca3af; margin-bottom: 6px; }
+    .guide-reason { font-size: 13px; color: #374151; line-height: 1.6; }
+
+    .stance-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 100px;
+      flex-shrink: 0; white-space: nowrap;
+    }
+    .stance-endorsed { background: #dcfce7; color: #166534; }
+    .stance-oppose { background: #fee2e2; color: #991b1b; }
+    .stance-yes { background: #dcfce7; color: #166534; }
+    .stance-no { background: #fee2e2; color: #991b1b; }
+    .stance-neutral { background: #f3f4f6; color: #6b7280; }
+
+    /* Measure card variant */
+    .guide-measure-card {
+      border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
+      margin-bottom: 12px; background: #fff;
+    }
+    .guide-measure-body {
+      padding: 16px 18px; display: flex; align-items: flex-start; gap: 14px;
+    }
+    .measure-badge {
+      width: 48px; height: 48px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800;
+    }
+    .measure-badge.yes { background: #dcfce7; color: #166534; }
+    .measure-badge.no { background: #fee2e2; color: #991b1b; }
+    .measure-title { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 2px; }
+    .measure-subtitle { font-size: 12px; color: #9ca3af; margin-bottom: 6px; }
+
+    /* No endorsement state */
+    .guide-no-endorsement {
+      padding: 14px 18px; display: flex; align-items: center; gap: 12px;
+      color: #9ca3af; font-size: 13px;
+    }
+    .guide-no-endorsement-icon {
+      width: 40px; height: 40px; border-radius: 50%; background: #f3f4f6;
+      display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+    }
+
+    .guide-share-bar {
+      margin-top: 32px; padding: 20px 24px;
+      background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .guide-share-bar h3 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .guide-share-bar p { font-size: 13px; color: #6b7280; }
+    .btn-share-guide {
+      padding: 9px 20px; background: #f5c518; border: none; border-radius: 8px;
+      font-size: 13px; font-weight: 700; color: #111; cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-share-guide:hover { background: #e6b800; }
+
+    /* ── ABOUT TAB ── */
+    .about-section { margin-bottom: 28px; }
+    .about-section-title {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: #9ca3af; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .about-section-title::after { content: ''; flex: 1; height: 1px; background: #f3f4f6; }
+
+    .about-prose { font-size: 14px; color: #374151; line-height: 1.75; }
+    .about-prose + .about-prose { margin-top: 12px; }
+
+    .focus-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .focus-tag {
+      padding: 6px 14px; background: #f3f4f6; border-radius: 100px;
+      font-size: 13px; font-weight: 500; color: #374151;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    .process-steps { display: flex; flex-direction: column; gap: 0; }
+    .process-step {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 16px 0; border-bottom: 1px solid #f3f4f6;
+    }
+    .process-step:last-child { border-bottom: none; }
+    .process-step-num {
+      width: 28px; height: 28px; border-radius: 50%; background: #eef2ff;
+      color: #3b5bdb; font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+    }
+    .process-step-title { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 3px; }
+    .process-step-desc { font-size: 13px; color: #6b7280; line-height: 1.5; }
+
+    .leadership-grid { display: flex; flex-direction: column; gap: 12px; }
+    .leadership-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; border: 1px solid #e5e7eb; border-radius: 10px; background: #fff;
+    }
+    .leadership-avatar {
+      width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700; color: #fff;
+    }
+    .leadership-name { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 2px; }
+    .leadership-role { font-size: 12px; color: #6b7280; }
+    .leadership-handle { font-size: 12px; color: #3b5bdb; margin-top: 2px; }
+
+    .involve-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .involve-card {
+      border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px 16px;
+      text-align: center; background: #fff;
+    }
+    .involve-card-icon { font-size: 28px; margin-bottom: 8px; }
+    .involve-card-title { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .involve-card-desc { font-size: 12px; color: #6b7280; line-height: 1.5; margin-bottom: 12px; }
+    .involve-card-btn {
+      display: block; width: 100%; padding: 8px 0;
+      border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: none;
+    }
+    .involve-card-btn.primary { background: #f5c518; color: #111; }
+    .involve-card-btn.primary:hover { background: #e6b800; }
+    .involve-card-btn.secondary { background: #f3f4f6; color: #374151; }
+    .involve-card-btn.secondary:hover { background: #e5e7eb; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px; border: 1px solid #e5e7eb; border-radius: 10px;
+      font-size: 13px; color: #374151;
+    }
+    .contact-item-icon { font-size: 18px; flex-shrink: 0; }
+    .contact-item a { color: #3b5bdb; text-decoration: none; font-weight: 500; }
+    .contact-item a:hover { text-decoration: underline; }
+
+    .disclaimer-box {
+      margin-top: 28px; padding: 16px 18px;
+      background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px;
+      font-size: 12px; color: #9ca3af; line-height: 1.6;
+    }
+    .disclaimer-box strong { color: #6b7280; }
+
+    /* ── PETITIONS TAB ── */
+    .petition-filter-row {
+      display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; align-items: center;
+    }
+    .petition-filter-row .guide-chip { font-size: 13px; }
+
+    .petitions-section-label {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: #9ca3af; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .petitions-section-label::after { content: ''; flex: 1; height: 1px; background: #f3f4f6; }
+
+    .petition-card {
+      border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
+      margin-bottom: 14px; background: #fff;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .petition-card:hover { box-shadow: 0 3px 16px rgba(0,0,0,0.08); border-color: #d1d5db; }
+
+    .petition-card-inner { display: flex; gap: 0; }
+    .petition-card-image {
+      width: 100px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; min-height: 120px;
+    }
+    .petition-card-body { flex: 1; padding: 16px 18px 14px; min-width: 0; }
+    .petition-card-tags { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+    .petition-tag {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 2px 8px; border-radius: 100px;
+    }
+    .petition-tag.featured { background: #fef9c3; color: #92400e; }
+    .petition-tag.housing { background: #dbeafe; color: #1e40af; }
+    .petition-tag.eviction { background: #fee2e2; color: #991b1b; }
+    .petition-tag.rent { background: #dcfce7; color: #166534; }
+    .petition-tag.education { background: #ede9fe; color: #5b21b6; }
+    .petition-tag.sro { background: #fce7f3; color: #9d174d; }
+
+    .petition-title {
+      font-size: 15px; font-weight: 700; color: #111; margin-bottom: 4px; line-height: 1.35;
+    }
+    .petition-creator { font-size: 12px; color: #9ca3af; margin-bottom: 10px; }
+    .petition-creator strong { color: #6b7280; }
+    .petition-excerpt { font-size: 13px; color: #374151; line-height: 1.5; margin-bottom: 12px; }
+
+    .petition-progress { margin-bottom: 10px; }
+    .petition-progress-bar-wrap {
+      height: 6px; background: #f3f4f6; border-radius: 100px; overflow: hidden; margin-bottom: 5px;
+    }
+    .petition-progress-bar {
+      height: 100%; background: #16a34a; border-radius: 100px;
+      transition: width 0.3s ease;
+    }
+    .petition-progress-stats {
+      display: flex; justify-content: space-between;
+      font-size: 12px; color: #9ca3af;
+    }
+    .petition-progress-stats strong { color: #111; font-size: 13px; }
+
+    .petition-card-footer {
+      padding: 10px 18px 14px; display: flex; align-items: center; gap: 10px;
+      border-top: 1px solid #f9fafb;
+    }
+    .btn-sign {
+      padding: 8px 20px; background: #e8522a; border: none; border-radius: 8px;
+      color: #fff; font-size: 13px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-sign:hover { background: #d14420; }
+    .btn-sign-secondary {
+      padding: 8px 14px; background: #f3f4f6; border: none; border-radius: 8px;
+      color: #374151; font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .btn-sign-secondary:hover { background: #e5e7eb; }
+    .petition-shared-by {
+      margin-left: auto; font-size: 12px; color: #9ca3af;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .petition-shared-by strong { color: #374151; }
+
+    .petition-callout {
+      background: #f0f4ff; border: 1px solid #c7d2fe; border-radius: 10px;
+      padding: 14px 16px; margin-bottom: 20px;
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; color: #374151; line-height: 1.5;
+    }
+    .petition-callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── START A PETITION PROMPT ── */
+    .start-petition-card {
+      margin-top: 28px;
+      border: 2px dashed #d1d5db; border-radius: 16px;
+      background: #fafafa; overflow: hidden;
+    }
+    .start-petition-card:focus-within {
+      border-color: #e8522a; border-style: solid; background: #fff;
+    }
+    .start-petition-header {
+      padding: 22px 24px 0;
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .start-petition-icon {
+      width: 44px; height: 44px; background: #fff3ee; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .start-petition-header h3 { font-size: 16px; font-weight: 800; color: #111; margin-bottom: 3px; }
+    .start-petition-header p { font-size: 13px; color: #6b7280; line-height: 1.5; }
+    .start-petition-body { padding: 18px 24px 0; }
+
+    .petition-input-label {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: #9ca3af; margin-bottom: 8px;
+    }
+    .petition-title-input {
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid #e5e7eb; border-radius: 10px;
+      font-family: inherit; font-size: 15px; font-weight: 600; color: #111;
+      background: #fff; outline: none; resize: none;
+      line-height: 1.4;
+    }
+    .petition-title-input:focus { border-color: #e8522a; }
+    .petition-title-input::placeholder { color: #c4c9d4; font-weight: 400; }
+
+    .petition-topic-row {
+      margin-top: 14px;
+    }
+    .petition-topic-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .petition-topic-chip {
+      padding: 6px 14px; border-radius: 100px; font-size: 13px; font-weight: 500;
+      border: 1.5px solid #e5e7eb; background: #fff; cursor: pointer; color: #374151;
+      transition: all 0.12s;
+    }
+    .petition-topic-chip:hover { border-color: #e8522a; color: #e8522a; }
+    .petition-topic-chip.selected { background: #fff3ee; border-color: #e8522a; color: #e8522a; font-weight: 600; }
+
+    .petition-preview {
+      margin-top: 16px; padding: 14px 16px;
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
+      display: none;
+    }
+    .petition-preview.visible { display: block; }
+    .petition-preview-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: #9ca3af; margin-bottom: 8px;
+    }
+    .petition-preview-title {
+      font-size: 14px; font-weight: 700; color: #111; margin-bottom: 6px; line-height: 1.4;
+    }
+    .petition-preview-meta { font-size: 12px; color: #9ca3af; }
+    .petition-preview-meta strong { color: #6b7280; }
+
+    .start-petition-footer {
+      padding: 16px 24px 20px;
+      display: flex; align-items: center; gap: 10px; margin-top: 16px;
+    }
+    .btn-start-petition {
+      padding: 11px 24px; background: #e8522a; border: none; border-radius: 9px;
+      color: #fff; font-size: 14px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .btn-start-petition:hover { background: #d14420; }
+    .btn-start-petition:disabled { background: #d1d5db; color: #9ca3af; cursor: not-allowed; }
+    .start-petition-footer .hint { font-size: 12px; color: #9ca3af; line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">C.</div>
+  <div class="nav-tabs">
+    <a class="nav-tab" href="#">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1"></rect><rect x="9" y="1" width="6" height="6" rx="1"></rect><rect x="1" y="9" width="6" height="6" rx="1"></rect><rect x="9" y="9" width="6" height="6" rx="1"></rect></svg>
+      Ballot
+    </a>
+    <a class="nav-tab" href="#">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"></circle><path d="M8 4v4l3 2"></path></svg>
+      Guides
+    </a>
+    <a class="nav-tab active" href="directory.html">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h10M3 8h7M3 12h5"></path><circle cx="13" cy="11" r="2.5"></circle></svg>
+      Groups
+    </a>
+  </div>
+  <div class="nav-avatar"></div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb-wrap">
+  <a href="#">San Francisco Primaries 2026</a> › <a href="directory.html">Groups</a> › SF Tenants Union
+</div>
+
+<div class="page-wrap">
+
+  <!-- GROUP HEADER -->
+  <div class="group-header">
+    <div class="group-avatar">🏠</div>
+    <div class="group-meta">
+      <h1>
+        SF Tenants Union
+        <span class="verified-badge">
+          <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 0L7.5 2H10L8.5 4L9.5 6.5L7 5.5L6 8L5 5.5L2.5 6.5L3.5 4L2 2H4.5L6 0Z"></path></svg>
+          Verified Group
+        </span>
+      </h1>
+      <div class="group-tagline">Fighting for tenants' rights in San Francisco since 1970. Independent voter guide for housing-focused voters.</div>
+      <div class="group-stats">
+        <span><strong>1,847</strong> followers</span>
+        <span><strong>12</strong> endorsements for SF 2026</span>
+        <span><strong>2</strong> Q&amp;A sessions scheduled</span>
+      </div>
+    </div>
+    <div class="group-actions">
+      <button class="btn-follow">+ Follow</button>
+      <button class="btn-share">Share</button>
+    </div>
+  </div>
+
+  <!-- GROUP SUB-NAV -->
+  <div class="group-subnav">
+    <a class="subnav-tab" href="#" onclick="showTab('feed');return false;">Feed <span class="subnav-count">24</span></a>
+    <a class="subnav-tab" href="#" onclick="showTab('guide');return false;">Voting Guide <span class="subnav-count">12</span></a>
+    <a class="subnav-tab" href="#" onclick="showTab('qas');return false;">Candidate Q&amp;As <span class="subnav-count">2</span></a>
+    <a class="subnav-tab active" href="#" onclick="showTab('petitions');return false;">Petitions <span class="subnav-count">8</span></a>
+    <a class="subnav-tab" href="#" onclick="showTab('about');return false;">About</a>
+  </div>
+
+  <!-- TWO-COLUMN LAYOUT -->
+  <div class="two-col">
+
+    <!-- LEFT: FEED -->
+    <div>
+
+    <!-- TAB: FEED -->
+    <div id="tab-feed" class="tab-panel">
+
+      <!-- Upcoming Q&A banner -->
+      <div class="qa-banner">
+        <div class="qa-banner-icon">🎤</div>
+        <div class="qa-banner-text">
+          <h3>Upcoming: Candidate Q&amp;A on Housing — May 28</h3>
+          <p>SF Tenants Union is hosting a live Q&amp;A. 3 candidates invited · 2 confirmed</p>
+        </div>
+        <div class="qa-banner-action">
+          <button class="btn-qa">RSVP</button>
+        </div>
+      </div>
+
+      <!-- Q&A session card in feed -->
+      <div class="qa-session-card">
+        <div class="qa-session-header">
+          <span>🎤</span>
+          <span class="label">Candidate Q&amp;A Session</span>
+          <span style="margin-left:auto;font-size:12px;color:#3b5bdb;font-weight:600;">May 28, 6:00 PM PT</span>
+        </div>
+        <div class="qa-session-body">
+          <h3>Where do you stand on tenant protections &amp; just cause eviction?</h3>
+          <div class="desc">SF Tenants Union has invited all candidates for Mayor and District Supervisors to answer our questions live. Community members can submit questions in advance and vote on which ones get asked.</div>
+          <div class="qa-candidate-list">
+            <div class="qa-candidate-row">
+              <div class="qa-candidate-photo">👩</div>
+              <div class="qa-candidate-info">
+                <div class="qa-candidate-name">Connie Chan <span class="party-badge">D</span></div>
+                <div class="qa-candidate-race">U.S. House · CA 11th</div>
+              </div>
+              <span class="qa-status confirmed">✓ Confirmed</span>
+            </div>
+            <div class="qa-candidate-row">
+              <div class="qa-candidate-photo">👨</div>
+              <div class="qa-candidate-info">
+                <div class="qa-candidate-name">Scott Wiener <span class="party-badge">D</span></div>
+                <div class="qa-candidate-race">U.S. House · CA 11th</div>
+              </div>
+              <span class="qa-status confirmed">✓ Confirmed</span>
+            </div>
+            <div class="qa-candidate-row">
+              <div class="qa-candidate-photo">🧑</div>
+              <div class="qa-candidate-info">
+                <div class="qa-candidate-name">Saikat Chakrabarti <span class="party-badge">D</span></div>
+                <div class="qa-candidate-race">U.S. House · CA 11th</div>
+              </div>
+              <span class="qa-status invited">Invited · No response</span>
+            </div>
+          </div>
+        </div>
+        <div class="qa-session-footer">
+          <span class="date">📅 Wednesday May 28 · Zoom + change.vote livestream</span>
+          <button class="btn-rsvp">RSVP · 84 attending</button>
+        </div>
+      </div>
+
+      <!-- Post 1: Official endorsement -->
+      <div class="feed-card">
+        <div class="feed-card-body">
+          <div class="post-author">
+            <div class="post-avatar" style="background:#1e3a5f;">🏠</div>
+            <div class="post-author-info">
+              <div class="post-author-name">
+                sftenantsunion
+                <span class="group-tag">SF Tenants Union</span>
+              </div>
+              <div class="post-meta">2h ago · Official endorsement · 214 views</div>
+            </div>
+          </div>
+          <div class="post-title">We're endorsing Connie Chan for U.S. House</div>
+          <div class="post-body">Connie Chan has a proven record standing with tenants against corporate landlords and has co-sponsored multiple just-cause eviction protections at the city level. Her record on housing affordability is exactly what we need in Congress.</div>
+          <div class="candidate-embed">
+            <div class="candidate-embed-inner">
+              <div class="candidate-embed-photo">👩</div>
+              <div class="candidate-embed-meta">
+                <div class="candidate-embed-stance">👍 Endorsed by SF Tenants Union</div>
+                <div class="candidate-embed-name">Connie Chan <span class="party-badge">D</span></div>
+                <div class="candidate-embed-race">U.S. House of Representatives · CA 11th Congressional District</div>
+              </div>
+              <span class="candidate-embed-arrow">›</span>
+            </div>
+          </div>
+          <div class="post-footer">
+            <button class="vote-btn">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M8 3l-3 3M8 3l3 3"></path></svg>
+              47
+            </button>
+            <button class="comment-btn">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h12v8H9l-3 2v-2H2V3z"></path></svg>
+              8 comments
+            </button>
+            <span class="share-btn">⤴</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 2: Opinion post -->
+      <div class="feed-card">
+        <div class="feed-card-body">
+          <div class="post-author">
+            <div class="post-avatar" style="background:#7c3aed;">T</div>
+            <div class="post-author-info">
+              <div class="post-author-name">
+                tenderloinhope
+                <span class="group-tag">SF Tenants Union · Member</span>
+              </div>
+              <div class="post-meta">5h ago · 61 views</div>
+            </div>
+          </div>
+          <div class="post-title">Why this election matters for SB 9 rollback</div>
+          <div class="post-body">As a Tenderloin renter I've watched displacement hollow out our neighborhood. Whoever wins the 11th needs to take a clear position on reversing SB 9 — I want to hear from every candidate before I decide.</div>
+          <div class="post-footer">
+            <button class="vote-btn">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M8 3l-3 3M8 3l3 3"></path></svg>
+              19
+            </button>
+            <button class="comment-btn">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h12v8H9l-3 2v-2H2V3z"></path></svg>
+              4 comments
+            </button>
+            <span class="share-btn">⤴</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 3: Opposing -->
+      <div class="feed-card">
+        <div class="feed-card-body">
+          <div class="post-author">
+            <div class="post-avatar" style="background:#1e3a5f;">🏠</div>
+            <div class="post-author-info">
+              <div class="post-author-name">
+                sftenantsunion
+                <span class="group-tag">SF Tenants Union</span>
+              </div>
+              <div class="post-meta">1d ago · Official position · 389 views</div>
+            </div>
+          </div>
+          <div class="post-title">We are opposing Saikat Chakrabarti's housing positions</div>
+          <div class="post-body">While we appreciate his energy on economic justice, his stated support for upzoning without tenant protections could accelerate displacement in rent-controlled neighborhoods. We've invited him to our May 28 Q&amp;A to hear him respond directly to community concerns.</div>
+          <div class="candidate-embed">
+            <div class="candidate-embed-inner">
+              <div class="candidate-embed-photo">🧑</div>
+              <div class="candidate-embed-meta">
+                <div class="candidate-embed-stance opposing">👎 Position of concern</div>
+                <div class="candidate-embed-name">Saikat Chakrabarti <span class="party-badge">D</span></div>
+                <div class="candidate-embed-race">U.S. House of Representatives · CA 11th Congressional District</div>
+              </div>
+              <span class="candidate-embed-arrow">›</span>
+            </div>
+          </div>
+          <div class="post-footer">
+            <button class="vote-btn">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M8 3l-3 3M8 3l3 3"></path></svg>
+              31
+            </button>
+            <button class="comment-btn">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h12v8H9l-3 2v-2H2V3z"></path></svg>
+              22 comments
+            </button>
+            <span class="share-btn">⤴</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tab-feed -->
+
+    <!-- TAB: VOTING GUIDE -->
+    <div id="tab-guide" class="tab-panel">
+
+      <div class="guide-filter-row">
+        <div class="guide-chip active" onclick="filterGuide('all',this)">All <span style="color:#9ca3af;font-weight:400;">12</span></div>
+        <div class="guide-chip" onclick="filterGuide('federal',this)">🏛 Federal</div>
+        <div class="guide-chip" onclick="filterGuide('state',this)">🌉 State</div>
+        <div class="guide-chip" onclick="filterGuide('local',this)">🏙 Local</div>
+        <div class="guide-chip" onclick="filterGuide('measures',this)">📋 Measures</div>
+      </div>
+
+      <!-- FEDERAL -->
+      <div class="guide-section" data-level="federal">
+        <div class="guide-section-header">
+          <div class="guide-section-icon" style="background:#dbeafe;">🏛</div>
+          <span class="guide-section-title">Federal <span class="guide-section-count">· 1 race</span></span>
+        </div>
+
+        <div class="guide-race-card">
+          <div class="guide-race-header">U.S. House of Representatives · CA 11th Congressional District</div>
+          <div class="guide-race-body">
+            <div class="guide-pick-row">
+              <div class="guide-pick-avatar">👩</div>
+              <div class="guide-pick-info">
+                <div class="guide-pick-name-row">
+                  <span class="guide-pick-fullname">Connie Chan</span>
+                  <span class="party-badge">D</span>
+                  <span class="stance-pill stance-endorsed">✓ Endorsed</span>
+                </div>
+                <div class="guide-pick-race-sub">Supervisor · District 1, SF Board of Supervisors</div>
+                <div class="guide-reason">Connie has co-sponsored just-cause eviction protections and has a documented record opposing no-fault evictions at the city level. She understands that housing security is economic security — and she'll fight for it in Congress.</div>
+              </div>
+            </div>
+            <div class="guide-pick-row">
+              <div class="guide-pick-avatar">🧑</div>
+              <div class="guide-pick-info">
+                <div class="guide-pick-name-row">
+                  <span class="guide-pick-fullname">Saikat Chakrabarti</span>
+                  <span class="party-badge">D</span>
+                  <span class="stance-pill stance-oppose">✕ Concerns</span>
+                </div>
+                <div class="guide-pick-race-sub">Economic Policy Director · New Consensus</div>
+                <div class="guide-reason">His pro-upzoning stance without explicit tenant protections risks accelerating displacement in rent-controlled neighborhoods. We've invited him to respond to our May 28 Q&amp;A — our position may be updated after that session.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE -->
+      <div class="guide-section" data-level="state">
+        <div class="guide-section-header">
+          <div class="guide-section-icon" style="background:#dcfce7;">🌉</div>
+          <span class="guide-section-title">State <span class="guide-section-count">· 2 races</span></span>
+        </div>
+
+        <div class="guide-race-card">
+          <div class="guide-race-header">State Senate · District 11</div>
+          <div class="guide-race-body">
+            <div class="guide-pick-row">
+              <div class="guide-pick-avatar">🧑</div>
+              <div class="guide-pick-info">
+                <div class="guide-pick-name-row">
+                  <span class="guide-pick-fullname">Jackie Fielder</span>
+                  <span class="party-badge">D</span>
+                  <span class="stance-pill stance-endorsed">✓ Endorsed</span>
+                </div>
+                <div class="guide-pick-race-sub">Community organizer &amp; educator</div>
+                <div class="guide-reason">Jackie has been on the frontlines of tenant organizing in SF for years. She supports a statewide just-cause eviction standard, expanded rent stabilization, and has specifically committed to fighting Ellis Act abuse.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="guide-race-card">
+          <div class="guide-race-header">State Assembly · District 17</div>
+          <div class="guide-race-body">
+            <div class="guide-no-endorsement">
+              <div class="guide-no-endorsement-icon">⏳</div>
+              <div>
+                <div style="font-weight:600;color:#374151;margin-bottom:2px;">Endorsement pending</div>
+                We are reviewing candidates in this race. Expected by May 20.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOCAL -->
+      <div class="guide-section" data-level="local">
+        <div class="guide-section-header">
+          <div class="guide-section-icon" style="background:#fef9c3;">🏙</div>
+          <span class="guide-section-title">Local <span class="guide-section-count">· 4 races</span></span>
+        </div>
+
+        <div class="guide-race-card">
+          <div class="guide-race-header">SF Board of Supervisors · District 3</div>
+          <div class="guide-race-body">
+            <div class="guide-pick-row">
+              <div class="guide-pick-avatar">👩</div>
+              <div class="guide-pick-info">
+                <div class="guide-pick-name-row">
+                  <span class="guide-pick-fullname">Sharon Lai</span>
+                  <span class="party-badge">D</span>
+                  <span class="stance-pill stance-endorsed">✓ Endorsed</span>
+                </div>
+                <div class="guide-pick-race-sub">Former SF Planning Commissioner</div>
+                <div class="guide-reason">Sharon's work on the Planning Commission shows a commitment to community-first development. She supports strengthening tenant protections citywide and has pledged to oppose any weakening of rent control ordinances.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="guide-race-card">
+          <div class="guide-race-header">SF Board of Supervisors · District 6</div>
+          <div class="guide-race-body">
+            <div class="guide-pick-row">
+              <div class="guide-pick-avatar">👩</div>
+              <div class="guide-pick-info">
+                <div class="guide-pick-name-row">
+                  <span class="guide-pick-fullname">Honey Mahogany</span>
+                  <span class="party-badge">D</span>
+                  <span class="stance-pill stance-endorsed">✓ Endorsed</span>
+                </div>
+                <div class="guide-pick-race-sub">Executive Director · SF LGBT Center</div>
+                <div class="guide-reason">Honey represents some of SF's most vulnerable renters — SRO residents, seniors, and low-income families in the Tenderloin and SoMa. She has an unimpeachable record on tenant rights and anti-displacement policy.</div>
+              </div>
+            </div>
+            <div class="guide-pick-row">
+              <div class="guide-pick-avatar">👨</div>
+              <div class="guide-pick-info">
+                <div class="guide-pick-name-row">
+                  <span class="guide-pick-fullname">Matt Dorsey</span>
+                  <span class="party-badge">D</span>
+                  <span class="stance-pill stance-oppose">✕ Oppose</span>
+                </div>
+                <div class="guide-pick-race-sub">SF Board of Supervisors incumbent</div>
+                <div class="guide-reason">Dorsey has consistently sided with real estate interests and voted against strengthening eviction protections in District 6. His record does not align with the needs of renters in this district.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="guide-race-card">
+          <div class="guide-race-header">SF Board of Supervisors · District 9</div>
+          <div class="guide-race-body">
+            <div class="guide-pick-row">
+              <div class="guide-pick-avatar">🧑</div>
+              <div class="guide-pick-info">
+                <div class="guide-pick-name-row">
+                  <span class="guide-pick-fullname">H. Brown</span>
+                  <span class="party-badge">D</span>
+                  <span class="stance-pill stance-endorsed">✓ Endorsed</span>
+                </div>
+                <div class="guide-pick-race-sub">Mission District community organizer</div>
+                <div class="guide-reason">A lifelong Mission resident who has organized against unlawful evictions for over a decade. Has specifically committed to funding a district-level tenant legal defense fund if elected.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="guide-race-card">
+          <div class="guide-race-header">SF Unified School Board · 2 seats</div>
+          <div class="guide-race-body">
+            <div class="guide-pick-row">
+              <div class="guide-pick-avatar">👩</div>
+              <div class="guide-pick-info">
+                <div class="guide-pick-name-row">
+                  <span class="guide-pick-fullname">Laurance Ong</span>
+                  <span class="stance-pill stance-endorsed">✓ Endorsed</span>
+                </div>
+                <div class="guide-pick-race-sub">Parent &amp; educator advocate</div>
+                <div class="guide-reason">Supports expanding affordable family housing near schools to prevent educator and student displacement — a key issue as rising rents force families and teachers out of SF.</div>
+              </div>
+            </div>
+            <div class="guide-pick-row">
+              <div class="guide-pick-avatar">👩</div>
+              <div class="guide-pick-info">
+                <div class="guide-pick-name-row">
+                  <span class="guide-pick-fullname">Parag Gupta</span>
+                  <span class="stance-pill stance-endorsed">✓ Endorsed</span>
+                </div>
+                <div class="guide-pick-race-sub">Public school parent</div>
+                <div class="guide-reason">Has made teacher retention and affordable staff housing a central issue. A strong ally on using school district land for affordable teacher housing.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MEASURES -->
+      <div class="guide-section" data-level="measures">
+        <div class="guide-section-header">
+          <div class="guide-section-icon" style="background:#ede9fe;">📋</div>
+          <span class="guide-section-title">Measures <span class="guide-section-count">· 3 positions</span></span>
+        </div>
+
+        <div class="guide-measure-card">
+          <div class="guide-measure-body">
+            <div class="measure-badge yes">YES</div>
+            <div>
+              <div class="guide-pick-name-row" style="margin-bottom:2px;">
+                <span class="measure-title">Prop C — Renter Stabilization Fund</span>
+                <span class="stance-pill stance-yes">✓ Support</span>
+              </div>
+              <div class="measure-subtitle">City ballot measure · June 2026</div>
+              <div class="guide-reason">Creates a $40M annual fund for emergency rental assistance, tenant legal defense, and anti-harassment enforcement. This is one of the most important tenant protections on any SF ballot in a decade. Vote YES.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="guide-measure-card">
+          <div class="guide-measure-body">
+            <div class="measure-badge no">NO</div>
+            <div>
+              <div class="guide-pick-name-row" style="margin-bottom:2px;">
+                <span class="measure-title">Prop D — Developer Streamlining Act</span>
+                <span class="stance-pill stance-no">✕ Oppose</span>
+              </div>
+              <div class="measure-subtitle">City ballot measure · June 2026</div>
+              <div class="guide-reason">Despite its name, Prop D would gut discretionary review rights that tenants and neighbors use to challenge projects that displace existing communities. The "streamlining" language obscures real harm to anti-displacement tools. Vote NO.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="guide-measure-card">
+          <div class="guide-measure-body">
+            <div class="measure-badge yes">YES</div>
+            <div>
+              <div class="guide-pick-name-row" style="margin-bottom:2px;">
+                <span class="measure-title">Prop E — Tenant Right to Counsel</span>
+                <span class="stance-pill stance-yes">✓ Support</span>
+              </div>
+              <div class="measure-subtitle">City ballot measure · June 2026</div>
+              <div class="guide-reason">Guarantees free legal representation to any SF renter facing eviction. Cities with right-to-counsel programs see eviction rates drop by over 50%. This saves homes. Vote YES.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SHARE BAR -->
+      <div class="guide-share-bar">
+        <div>
+          <h3>Share this voting guide</h3>
+          <p>Help SF tenants vote with this guide — share it with your neighbors and building.</p>
+        </div>
+        <button class="btn-share-guide">⤴ Share guide</button>
+      </div>
+
+    </div>
+
+    <!-- TAB: CANDIDATE Q&As -->
+    <div id="tab-qas" class="tab-panel">
+
+      <!-- UPCOMING SESSION -->
+      <div class="qa-section-title" style="margin-bottom:14px;">Upcoming · 1 session</div>
+
+      <div class="qa-full-session">
+        <div class="qa-full-header">
+          <div class="label">🎤 Candidate Q&amp;A Session · Upcoming</div>
+          <h2>Where do you stand on tenant protections &amp; just cause eviction?</h2>
+          <div class="meta">
+            <span>📅 Wednesday, May 28 · 6:00 PM PT</span>
+            <span>📍 Zoom + change.vote livestream</span>
+            <span>👥 84 attending</span>
+          </div>
+        </div>
+
+        <div class="qa-full-body">
+
+          <div class="qa-section-title">Candidates invited</div>
+          <div class="qa-candidates-grid">
+            <div class="qa-candidate-full">
+              <div class="qa-candidate-full-photo">👩</div>
+              <div class="qa-candidate-full-info">
+                <div class="qa-candidate-full-name">Connie Chan <span class="party-badge">D</span></div>
+                <div class="qa-candidate-full-race">U.S. House · CA 11th Congressional District</div>
+              </div>
+              <span class="qa-status-lg confirmed">✓ Confirmed</span>
+            </div>
+            <div class="qa-candidate-full">
+              <div class="qa-candidate-full-photo">👨</div>
+              <div class="qa-candidate-full-info">
+                <div class="qa-candidate-full-name">Scott Wiener <span class="party-badge">D</span></div>
+                <div class="qa-candidate-full-race">U.S. House · CA 11th Congressional District</div>
+              </div>
+              <span class="qa-status-lg confirmed">✓ Confirmed</span>
+            </div>
+            <div class="qa-candidate-full">
+              <div class="qa-candidate-full-photo">🧑</div>
+              <div class="qa-candidate-full-info">
+                <div class="qa-candidate-full-name">Saikat Chakrabarti <span class="party-badge">D</span></div>
+                <div class="qa-candidate-full-race">U.S. House · CA 11th Congressional District</div>
+              </div>
+              <span class="qa-status-lg invited" title="Click to nudge this candidate to respond">👋 Nudge to respond</span>
+            </div>
+          </div>
+
+          <div class="qa-section-title">Community questions <span style="color:#374151;font-weight:400;text-transform:none;letter-spacing:0;font-size:12px;">· Top questions will be asked during the live session</span></div>
+
+          <div class="questions-list">
+            <div class="question-card">
+              <div class="question-upvote">
+                <button class="upvote-btn voted" onclick="toggleVote(this)">▲</button>
+                <span class="upvote-count">41</span>
+              </div>
+              <div>
+                <div class="question-text">Will you co-sponsor federal legislation requiring just-cause eviction protections for all renters, not just those in rent-controlled cities? <span class="question-top-badge">Top question</span></div>
+                <div class="question-meta">Asked by missiondistrict.renter · 2h ago</div>
+              </div>
+            </div>
+            <div class="question-card">
+              <div class="question-upvote">
+                <button class="upvote-btn" onclick="toggleVote(this)">▲</button>
+                <span class="upvote-count">29</span>
+              </div>
+              <div>
+                <div class="question-text">What is your position on expanding the Ellis Act, which landlords use to remove tenants from rent-controlled units?</div>
+                <div class="question-meta">Asked by sftenantsunion · 4h ago</div>
+              </div>
+            </div>
+            <div class="question-card">
+              <div class="question-upvote">
+                <button class="upvote-btn" onclick="toggleVote(this)">▲</button>
+                <span class="upvote-count">18</span>
+              </div>
+              <div>
+                <div class="question-text">How do you balance increasing housing supply with protecting existing tenants from displacement caused by new development?</div>
+                <div class="question-meta">Asked by tenderloinhope · 6h ago</div>
+              </div>
+            </div>
+            <div class="question-card">
+              <div class="question-upvote">
+                <button class="upvote-btn" onclick="toggleVote(this)">▲</button>
+                <span class="upvote-count">11</span>
+              </div>
+              <div>
+                <div class="question-text">Would you support a federal renter's tax credit to help low-income tenants afford housing in expensive metro areas like SF?</div>
+                <div class="question-meta">Asked by chill.castro.voter · 8h ago</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa-section-title" style="margin-top:4px;">Submit a question</div>
+          <div class="question-submit">
+            <textarea placeholder="Ask the candidates something… Your question will be visible to all attendees and can be upvoted."></textarea>
+            <div class="question-submit-footer">
+              <span class="hint">Questions with the most upvotes get asked first.</span>
+              <button class="btn-submit-q">Submit question</button>
+            </div>
+          </div>
+
+        </div><!-- /qa-full-body -->
+
+        <div class="rsvp-bar">
+          <div class="info"><strong>84 people</strong> attending · Free to watch on change.vote</div>
+          <button class="btn-rsvp-lg">RSVP for May 28 →</button>
+        </div>
+      </div><!-- /qa-full-session -->
+
+      <!-- PAST SESSION -->
+      <div class="qa-section-title" style="margin-top:8px;margin-bottom:14px;">Past · 1 session</div>
+
+      <div class="qa-past-session">
+        <div class="qa-past-header">
+          <div>
+            <div class="label">🎥 Completed · April 10, 2026</div>
+            <h3>Where do you stand on homelessness &amp; public safety?</h3>
+          </div>
+          <button class="btn-watch">▶ Watch recording</button>
+        </div>
+        <div class="qa-past-body">
+
+          <div class="qa-section-title">Who showed up</div>
+          <div class="past-participant">
+            <div class="past-participant-photo">👩</div>
+            <div>
+              <div class="past-participant-name">Connie Chan <span class="party-badge">D</span></div>
+              <div style="font-size:12px;color:#6b7280;">U.S. House · CA 11th</div>
+            </div>
+            <span class="past-participant-attended">✓ Attended</span>
+          </div>
+          <div class="past-participant">
+            <div class="past-participant-photo">👨</div>
+            <div>
+              <div class="past-participant-name">Scott Wiener <span class="party-badge">D</span></div>
+              <div style="font-size:12px;color:#6b7280;">U.S. House · CA 11th</div>
+            </div>
+            <span class="past-participant-attended">✓ Attended</span>
+          </div>
+          <div class="past-participant" style="margin-bottom:0;">
+            <div class="past-participant-photo">🧑</div>
+            <div>
+              <div class="past-participant-name">Saikat Chakrabarti <span class="party-badge">D</span></div>
+              <div style="font-size:12px;color:#6b7280;">U.S. House · CA 11th</div>
+            </div>
+            <span class="past-participant-absent">Did not attend</span>
+          </div>
+
+          <div class="qa-transcript" style="margin-top:20px;">
+            <div class="qa-section-title">Top questions from this session</div>
+
+            <div class="transcript-q">
+              <div class="q-label">Q · 38 upvotes</div>
+              <div class="q-text">What specific policies would you push for at the federal level to address homelessness in cities like SF?</div>
+            </div>
+            <div class="transcript-a">
+              <div class="a-label">
+                <span style="font-size:16px;">👩</span> Connie Chan
+              </div>
+              <div class="a-text">"I'd fight to expand HUD funding for supportive housing and push for federal wrap-around services — mental health, addiction treatment — tied directly to housing placement. Shelter-first doesn't work without the services."</div>
+            </div>
+            <div class="transcript-a" style="padding-top:0;">
+              <div class="a-label">
+                <span style="font-size:16px;">👨</span> Scott Wiener
+              </div>
+              <div class="a-text">"More housing is the answer. We need to build enough units that even the lowest-income residents have options. I'd prioritize block grants to cities with proven housing-first track records."</div>
+            </div>
+
+            <div class="transcript-q">
+              <div class="q-label">Q · 24 upvotes</div>
+              <div class="q-text">Do you support community oversight boards for police departments?</div>
+            </div>
+            <div class="transcript-a">
+              <div class="a-label"><span style="font-size:16px;">👩</span> Connie Chan</div>
+              <div class="a-text">"Yes — with real subpoena power. Oversight without teeth is theater."</div>
+            </div>
+            <div class="transcript-a" style="padding-top:0;">
+              <div class="a-label"><span style="font-size:16px;">👨</span> Scott Wiener</div>
+              <div class="a-text">"Oversight yes, but I want to make sure we're not creating a system that slows down accountability. The details matter here."</div>
+            </div>
+          </div>
+
+          <div class="show-more-link">Show all 8 questions from this session →</div>
+        </div>
+      </div><!-- /qa-past-session -->
+
+    </div><!-- /tab-qas -->
+
+    <!-- TAB: PETITIONS -->
+    <div id="tab-petitions" class="tab-panel active">
+
+      <div class="petition-callout">
+        <span class="petition-callout-icon">🔗</span>
+        <div>SF Tenants Union curates petitions from Change.org that align with their tenant rights work. Signing takes you to Change.org. <strong>SF Tenants Union has featured 3 petitions</strong> — the rest are surfaced from Change.org based on this group's focus areas.</div>
+      </div>
+
+      <div class="petition-filter-row">
+        <div class="guide-chip active" onclick="filterPetitions('all',this)">All <span style="color:#9ca3af;font-weight:400;">8</span></div>
+        <div class="guide-chip" onclick="filterPetitions('housing',this)">🏠 Housing</div>
+        <div class="guide-chip" onclick="filterPetitions('eviction',this)">🚫 Eviction</div>
+        <div class="guide-chip" onclick="filterPetitions('rent',this)">💰 Rent control</div>
+        <div class="guide-chip" onclick="filterPetitions('education',this)">📚 Education</div>
+      </div>
+
+      <!-- FEATURED BY GROUP -->
+      <div class="petitions-section-label">Featured by SF Tenants Union · 3</div>
+
+      <!-- Petition 1 -->
+      <div class="petition-card" data-topics="housing eviction">
+        <div class="petition-card-inner">
+          <div class="petition-card-image" style="background:#fff7ed;">🏘️</div>
+          <div class="petition-card-body">
+            <div class="petition-card-tags">
+              <span class="petition-tag featured">⭐ Featured</span>
+              <span class="petition-tag eviction">Eviction</span>
+              <span class="petition-tag housing">Housing</span>
+            </div>
+            <div class="petition-title">Expand Just Cause Eviction Protections to All SF Renters — Close the Costa-Hawkins Loophole</div>
+            <div class="petition-creator">Started by <strong>sftenantsunion</strong> on Change.org</div>
+            <div class="petition-progress">
+              <div class="petition-progress-bar-wrap">
+                <div class="petition-progress-bar" style="width:78%;"></div>
+              </div>
+              <div class="petition-progress-stats">
+                <span><strong>23,412</strong> signatures</span>
+                <span>Goal: 30,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="petition-card-footer">
+          <button class="btn-sign">✍️ Sign on Change.org</button>
+          <button class="btn-sign-secondary">⤴ Share</button>
+          <span class="petition-shared-by">Featured by <strong>SF Tenants Union</strong></span>
+        </div>
+      </div>
+
+      <!-- Petition 2 -->
+      <div class="petition-card" data-topics="housing rent">
+        <div class="petition-card-inner">
+          <div class="petition-card-image" style="background:#f0fdf4;">💚</div>
+          <div class="petition-card-body">
+            <div class="petition-card-tags">
+              <span class="petition-tag featured">⭐ Featured</span>
+              <span class="petition-tag rent">Rent control</span>
+            </div>
+            <div class="petition-title">Vote YES on Prop C: Fund the SF Renter Stabilization &amp; Legal Defense Fund</div>
+            <div class="petition-creator">Started by <strong>sftenantsunion</strong> on Change.org</div>
+            <div class="petition-progress">
+              <div class="petition-progress-bar-wrap">
+                <div class="petition-progress-bar" style="width:91%;"></div>
+              </div>
+              <div class="petition-progress-stats">
+                <span><strong>18,204</strong> signatures</span>
+                <span>Goal: 20,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="petition-card-footer">
+          <button class="btn-sign">✍️ Sign on Change.org</button>
+          <button class="btn-sign-secondary">⤴ Share</button>
+          <span class="petition-shared-by">Featured by <strong>SF Tenants Union</strong></span>
+        </div>
+      </div>
+
+      <!-- Petition 3 -->
+      <div class="petition-card" data-topics="eviction housing">
+        <div class="petition-card-inner">
+          <div class="petition-card-image" style="background:#fff1f2;">🚫</div>
+          <div class="petition-card-body">
+            <div class="petition-card-tags">
+              <span class="petition-tag featured">⭐ Featured</span>
+              <span class="petition-tag eviction">Eviction</span>
+            </div>
+            <div class="petition-title">Stop the Ellis Act: SF Landlords Are Using This Law to Displace Hundreds of Long-Term Tenants</div>
+            <div class="petition-creator">Started by <strong>missiondistrict.renter</strong> on Change.org</div>
+            <div class="petition-progress">
+              <div class="petition-progress-bar-wrap">
+                <div class="petition-progress-bar" style="width:55%;"></div>
+              </div>
+              <div class="petition-progress-stats">
+                <span><strong>8,741</strong> signatures</span>
+                <span>Goal: 15,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="petition-card-footer">
+          <button class="btn-sign">✍️ Sign on Change.org</button>
+          <button class="btn-sign-secondary">⤴ Share</button>
+          <span class="petition-shared-by">Featured by <strong>SF Tenants Union</strong></span>
+        </div>
+      </div>
+
+      <!-- RELATED FROM CHANGE.ORG -->
+      <div class="petitions-section-label" style="margin-top:8px;">Related on Change.org · matched to this group's focus areas</div>
+
+      <!-- Petition 4 -->
+      <div class="petition-card" data-topics="housing education">
+        <div class="petition-card-inner">
+          <div class="petition-card-image" style="background:#ede9fe;">🍎</div>
+          <div class="petition-card-body">
+            <div class="petition-card-tags">
+              <span class="petition-tag education">Education</span>
+              <span class="petition-tag housing">Housing</span>
+            </div>
+            <div class="petition-title">Keep SF Teachers in SF: Build Affordable Housing on SFUSD Land Before It's Too Late</div>
+            <div class="petition-creator">Started by <strong>savesfschools</strong> on Change.org · 3 days ago</div>
+            <div class="petition-progress">
+              <div class="petition-progress-bar-wrap">
+                <div class="petition-progress-bar" style="width:34%;"></div>
+              </div>
+              <div class="petition-progress-stats">
+                <span><strong>5,103</strong> signatures</span>
+                <span>Goal: 15,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="petition-card-footer">
+          <button class="btn-sign">✍️ Sign on Change.org</button>
+          <button class="btn-sign-secondary">⤴ Share</button>
+          <span class="petition-shared-by" style="color:#9ca3af;">Matched by topic</span>
+        </div>
+      </div>
+
+      <!-- Petition 5 -->
+      <div class="petition-card" data-topics="eviction housing">
+        <div class="petition-card-inner">
+          <div class="petition-card-image" style="background:#fce7f3;">🏨</div>
+          <div class="petition-card-body">
+            <div class="petition-card-tags">
+              <span class="petition-tag eviction">Eviction</span>
+            </div>
+            <div class="petition-title">End Landlord Harassment in Tenderloin SRO Hotels — Hold Owners Accountable</div>
+            <div class="petition-creator">Started by <strong>tenderloinhope</strong> on Change.org · 1 week ago</div>
+            <div class="petition-progress">
+              <div class="petition-progress-bar-wrap">
+                <div class="petition-progress-bar" style="width:22%;"></div>
+              </div>
+              <div class="petition-progress-stats">
+                <span><strong>2,198</strong> signatures</span>
+                <span>Goal: 10,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="petition-card-footer">
+          <button class="btn-sign">✍️ Sign on Change.org</button>
+          <button class="btn-sign-secondary">⤴ Share</button>
+          <span class="petition-shared-by" style="color:#9ca3af;">Matched by topic</span>
+        </div>
+      </div>
+
+      <!-- Petition 6 -->
+      <div class="petition-card" data-topics="rent housing">
+        <div class="petition-card-inner">
+          <div class="petition-card-image" style="background:#f0fdf4;">📉</div>
+          <div class="petition-card-body">
+            <div class="petition-card-tags">
+              <span class="petition-tag rent">Rent control</span>
+              <span class="petition-tag housing">Housing</span>
+            </div>
+            <div class="petition-title">Freeze Rents for SF Seniors on Fixed Income — No Increases Over 3% for Residents 65+</div>
+            <div class="petition-creator">Started by <strong>sfsenioradvocacy</strong> on Change.org · 2 weeks ago</div>
+            <div class="petition-progress">
+              <div class="petition-progress-bar-wrap">
+                <div class="petition-progress-bar" style="width:67%;"></div>
+              </div>
+              <div class="petition-progress-stats">
+                <span><strong>12,048</strong> signatures</span>
+                <span>Goal: 18,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="petition-card-footer">
+          <button class="btn-sign">✍️ Sign on Change.org</button>
+          <button class="btn-sign-secondary">⤴ Share</button>
+          <span class="petition-shared-by" style="color:#9ca3af;">Matched by topic</span>
+        </div>
+      </div>
+
+      <!-- Petition 7 -->
+      <div class="petition-card" data-topics="eviction rent">
+        <div class="petition-card-inner">
+          <div class="petition-card-image" style="background:#fff7ed;">⚖️</div>
+          <div class="petition-card-body">
+            <div class="petition-card-tags">
+              <span class="petition-tag eviction">Eviction</span>
+              <span class="petition-tag rent">Rent control</span>
+            </div>
+            <div class="petition-title">Require Landlords to Provide 6 Months Notice Before Any No-Fault Eviction in SF</div>
+            <div class="petition-creator">Started by <strong>calivotingalliance</strong> on Change.org · 1 month ago</div>
+            <div class="petition-progress">
+              <div class="petition-progress-bar-wrap">
+                <div class="petition-progress-bar" style="width:48%;"></div>
+              </div>
+              <div class="petition-progress-stats">
+                <span><strong>9,611</strong> signatures</span>
+                <span>Goal: 20,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="petition-card-footer">
+          <button class="btn-sign">✍️ Sign on Change.org</button>
+          <button class="btn-sign-secondary">⤴ Share</button>
+          <span class="petition-shared-by" style="color:#9ca3af;">Matched by topic</span>
+        </div>
+      </div>
+
+      <!-- Petition 8 -->
+      <div class="petition-card" data-topics="housing">
+        <div class="petition-card-inner">
+          <div class="petition-card-image" style="background:#dbeafe;">🌉</div>
+          <div class="petition-card-body">
+            <div class="petition-card-tags">
+              <span class="petition-tag housing">Housing</span>
+            </div>
+            <div class="petition-title">Prioritize 100% Affordable Housing on All City-Owned Vacant Lots in San Francisco</div>
+            <div class="petition-creator">Started by <strong>sfhousingforall</strong> on Change.org · 3 weeks ago</div>
+            <div class="petition-progress">
+              <div class="petition-progress-bar-wrap">
+                <div class="petition-progress-bar" style="width:29%;"></div>
+              </div>
+              <div class="petition-progress-stats">
+                <span><strong>7,320</strong> signatures</span>
+                <span>Goal: 25,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="petition-card-footer">
+          <button class="btn-sign">✍️ Sign on Change.org</button>
+          <button class="btn-sign-secondary">⤴ Share</button>
+          <span class="petition-shared-by" style="color:#9ca3af;">Matched by topic</span>
+        </div>
+      </div>
+
+      <!-- START A PETITION PROMPT -->
+      <div class="start-petition-card" id="start-petition-card">
+        <div class="start-petition-header">
+          <div class="start-petition-icon">✍️</div>
+          <div>
+            <h3>Don't see the petition you're looking for?</h3>
+            <p>SF Tenants Union members can start a petition on Change.org and link it to this group. It takes 2 minutes.</p>
+          </div>
+        </div>
+        <div class="start-petition-body">
+          <div class="petition-input-label">What do you want to change?</div>
+          <textarea class="petition-title-input" id="petition-title-input" rows="2" placeholder="e.g. Require landlords to pay relocation costs for no-fault evictions in SF" oninput="updatePetitionPreview()"></textarea>
+
+          <div class="petition-topic-row">
+            <div class="petition-input-label">Focus area</div>
+            <div class="petition-topic-chips">
+              <div class="petition-topic-chip" onclick="selectTopic(this, '🏠 Housing')">🏠 Housing</div>
+              <div class="petition-topic-chip" onclick="selectTopic(this, '🚫 Eviction')">🚫 Eviction</div>
+              <div class="petition-topic-chip" onclick="selectTopic(this, '💰 Rent control')">💰 Rent control</div>
+              <div class="petition-topic-chip" onclick="selectTopic(this, '📚 Education')">📚 Education</div>
+              <div class="petition-topic-chip" onclick="selectTopic(this, '🏨 SRO &amp; seniors')">🏨 SRO &amp; seniors</div>
+              <div class="petition-topic-chip" onclick="selectTopic(this, '⚖️ Legal rights')">⚖️ Legal rights</div>
+            </div>
+          </div>
+
+          <div class="petition-preview visible" id="petition-preview">
+            <div class="petition-preview-label">Preview · how it will appear in this group</div>
+            <div class="petition-preview-title" id="petition-preview-title">Require landlords to pay relocation costs for all no-fault evictions in SF</div>
+            <div class="petition-preview-meta">Started by <strong>you</strong> · linked to SF Tenants Union · 0 signatures</div>
+          </div>
+        </div>
+        <div class="start-petition-footer">
+          <button class="btn-start-petition" id="btn-start-petition">
+            Start petition on Change.org →
+          </button>
+          <span class="hint">You'll finish writing your petition<br>on Change.org — it's free.</span>
+        </div>
+      </div>
+
+    </div><!-- /tab-petitions -->
+
+    <!-- TAB: ABOUT -->
+    <div id="tab-about" class="tab-panel">
+
+      <!-- ABOUT US -->
+      <div class="about-section">
+        <div class="about-section-title">About us</div>
+        <div class="about-prose">The SF Tenants Union has been fighting for renters' rights in San Francisco since 1970. We are a member-supported, non-partisan organization that provides free counseling, legal referrals, and political advocacy to tenants across all SF neighborhoods.</div>
+        <div class="about-prose">Every election cycle we publish an independent voter guide based solely on candidate records and responses to our questionnaire — no political donations accepted, no endorsements for sale. Our positions are voted on by the full membership.</div>
+        <div class="about-prose" style="margin-top:12px;">On Change.vote, our official account posts group endorsements and positions. Individual member posts reflect their own views and are labeled accordingly.</div>
+      </div>
+
+      <!-- FOCUS AREAS -->
+      <div class="about-section">
+        <div class="about-section-title">Focus areas</div>
+        <div class="focus-tags">
+          <span class="focus-tag">🏠 Rent control</span>
+          <span class="focus-tag">⚖️ Just cause eviction</span>
+          <span class="focus-tag">🚫 Ellis Act reform</span>
+          <span class="focus-tag">🏛 Tenant legal defense</span>
+          <span class="focus-tag">🏗 Affordable housing</span>
+          <span class="focus-tag">👴 Senior housing</span>
+          <span class="focus-tag">🔑 SRO protections</span>
+          <span class="focus-tag">📜 Anti-harassment policy</span>
+        </div>
+      </div>
+
+      <!-- HOW WE MAKE ENDORSEMENTS -->
+      <div class="about-section">
+        <div class="about-section-title">How we make endorsements</div>
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="process-step-num">1</div>
+            <div>
+              <div class="process-step-title">Candidate questionnaire</div>
+              <div class="process-step-desc">We send a detailed written questionnaire to every candidate in races that affect SF tenants. Questions cover rent control, Ellis Act, just cause, and housing supply. All responses are published in full — you can read them on our website.</div>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">2</div>
+            <div>
+              <div class="process-step-title">Candidate Q&amp;A sessions</div>
+              <div class="process-step-desc">We invite all candidates to a live Q&amp;A hosted on Change.vote where members can ask follow-up questions and hear candidates respond in their own words. Attendance (or non-attendance) is part of our record.</div>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">3</div>
+            <div>
+              <div class="process-step-title">Member vote</div>
+              <div class="process-step-desc">Our steering committee presents recommendations to the full membership. Endorsements require a majority vote of members present at our general meeting. Any member can speak for or against a candidate during deliberations.</div>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">4</div>
+            <div>
+              <div class="process-step-title">Published with reasoning</div>
+              <div class="process-step-desc">Every endorsement and opposition comes with a written explanation of our reasoning. We update positions if a candidate's record or public statements change materially before election day.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEADERSHIP -->
+      <div class="about-section">
+        <div class="about-section-title">Leadership</div>
+        <div class="leadership-grid">
+          <div class="leadership-row">
+            <div class="leadership-avatar" style="background:#1e3a5f;">🏠</div>
+            <div>
+              <div class="leadership-name">Maria Gonzalez</div>
+              <div class="leadership-role">Executive Director</div>
+              <div class="leadership-handle">@sftenantsunion</div>
+            </div>
+          </div>
+          <div class="leadership-row">
+            <div class="leadership-avatar" style="background:#7c3aed;">R</div>
+            <div>
+              <div class="leadership-name">Ricardo Alvarez</div>
+              <div class="leadership-role">Political Director · Steering Committee Chair</div>
+              <div class="leadership-handle">@ric.alvarez.sftu</div>
+            </div>
+          </div>
+          <div class="leadership-row">
+            <div class="leadership-avatar" style="background:#059669;">J</div>
+            <div>
+              <div class="leadership-name">Jenna Park</div>
+              <div class="leadership-role">Tenant Counselor · SRO Specialist</div>
+              <div class="leadership-handle">@jenna.park.sftu</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GET INVOLVED -->
+      <div class="about-section">
+        <div class="about-section-title">Get involved</div>
+        <div class="involve-grid">
+          <div class="involve-card">
+            <div class="involve-card-icon">🤝</div>
+            <div class="involve-card-title">Become a member</div>
+            <div class="involve-card-desc">Join 4,000+ SF tenants. Members vote on endorsements and get free legal counseling.</div>
+            <button class="involve-card-btn primary">Join · $5/mo</button>
+          </div>
+          <div class="involve-card">
+            <div class="involve-card-icon">📣</div>
+            <div class="involve-card-title">Volunteer</div>
+            <div class="involve-card-desc">Canvass, phone bank, or help run our candidate Q&amp;A sessions before June.</div>
+            <button class="involve-card-btn secondary">Sign up</button>
+          </div>
+          <div class="involve-card">
+            <div class="involve-card-icon">📬</div>
+            <div class="involve-card-title">Get counseling</div>
+            <div class="involve-card-desc">Facing an eviction or harassment? Our free tenant hotline is open Mon–Fri.</div>
+            <button class="involve-card-btn secondary">415-282-6622</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="about-section">
+        <div class="about-section-title">Contact &amp; links</div>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <span class="contact-item-icon">🔗</span>
+            <div>Website<br><a href="#">sftu.org</a></div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-icon">✉️</span>
+            <div>Email<br><a href="#">info@sftu.org</a></div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-icon">📍</span>
+            <div>Office<br>558 Capp St, San Francisco</div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-icon">📱</span>
+            <div>Hotline<br><a href="#">415-282-6622</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DISCLAIMER -->
+      <div class="disclaimer-box">
+        <strong>About this page:</strong> This group page is administered by sftenantsunion. Posts labeled "Official endorsement" or "Official position" represent the SF Tenants Union's institutional views. Posts by individual members represent their personal opinions and do not constitute an official SFTU position. Change.vote does not verify or endorse the positions of any group.
+      </div>
+
+    </div>
+
+    </div><!-- /feed -->
+
+    <!-- RIGHT: SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- Voting Guide -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          Our 2026 Voting Guide
+          <a href="#">See all 12 →</a>
+        </div>
+        <div class="sidebar-card-body">
+          <div class="guide-race">
+            <div class="guide-race-title">U.S. House · CA 11th</div>
+            <div class="guide-pick">
+              <div class="guide-pick-photo">👩</div>
+              <div class="guide-pick-name">Connie Chan</div>
+              <span class="guide-pick-check">✓</span>
+            </div>
+          </div>
+          <div class="guide-race">
+            <div class="guide-race-title">State Senate · District 11</div>
+            <div class="guide-pick">
+              <div class="guide-pick-photo">🧑</div>
+              <div class="guide-pick-name">Jackie Fielder</div>
+              <span class="guide-pick-check">✓</span>
+            </div>
+          </div>
+          <div class="guide-race">
+            <div class="guide-race-title">SF Board of Supervisors · D6</div>
+            <div class="guide-pick">
+              <div class="guide-pick-photo">👩</div>
+              <div class="guide-pick-name">Honey Mahogany</div>
+              <span class="guide-pick-check">✓</span>
+            </div>
+            <div class="guide-oppose">
+              <div class="guide-pick-photo" style="background:#fef2f2;">👨</div>
+              <div class="guide-oppose-name">Matt Dorsey</div>
+              <span class="guide-oppose-x">✕</span>
+            </div>
+          </div>
+          <div class="guide-race">
+            <div class="guide-race-title">Prop C – Rent Stabilization</div>
+            <div class="guide-pick">
+              <div class="guide-pick-photo" style="background:#dcfce7;font-size:14px;color:#111;">YES</div>
+              <div class="guide-pick-name">Support Prop C</div>
+              <span class="guide-pick-check">✓</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Q&As -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          Candidate Q&amp;A Sessions
+          <a href="#">View all →</a>
+        </div>
+        <div class="sidebar-card-body">
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="padding:12px;background:#f0f4ff;border-radius:8px;border:1px solid #c7d2fe;">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#3b5bdb;margin-bottom:4px;">Upcoming · May 28</div>
+              <div style="font-size:13px;font-weight:600;color:#111;margin-bottom:4px;">Housing &amp; Tenant Protections</div>
+              <div style="font-size:12px;color:#6b7280;">3 candidates invited · 84 RSVPs</div>
+              <button class="btn-rsvp" style="margin-top:10px;width:100%;font-size:12px;padding:7px;">RSVP Free</button>
+            </div>
+            <div style="padding:12px;background:#f9fafb;border-radius:8px;border:1px solid #e5e7eb;">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#6b7280;margin-bottom:4px;">Completed · Apr 10</div>
+              <div style="font-size:13px;font-weight:600;color:#111;margin-bottom:4px;">Homelessness &amp; Public Safety</div>
+              <div style="font-size:12px;color:#6b7280;">4 candidates participated · Watch recording</div>
+              <a href="#" style="display:block;margin-top:8px;font-size:12px;font-weight:600;color:#3b5bdb;text-decoration:none;">▶ Watch recording →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Members -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          Top Voices
+          <a href="#">See all 1,847 →</a>
+        </div>
+        <div class="sidebar-card-body" style="padding-top:6px;padding-bottom:6px;">
+          <div class="member-row">
+            <div class="member-avatar" style="background:#1e3a5f;">🏠</div>
+            <div>
+              <div class="member-name">sftenantsunion</div>
+              <div class="member-handle">Official account</div>
+            </div>
+            <span class="member-mod">Admin</span>
+          </div>
+          <div class="member-row">
+            <div class="member-avatar" style="background:#7c3aed;">T</div>
+            <div>
+              <div class="member-name">tenderloinhope</div>
+              <div class="member-handle">41 posts this cycle</div>
+            </div>
+          </div>
+          <div class="member-row">
+            <div class="member-avatar" style="background:#059669;">M</div>
+            <div>
+              <div class="member-name">missiondistrict.renter</div>
+              <div class="member-handle">18 posts this cycle</div>
+            </div>
+          </div>
+          <div class="member-row">
+            <div class="member-avatar" style="background:#d97706;">C</div>
+            <div>
+              <div class="member-name">chill.castro.voter</div>
+              <div class="member-handle">12 posts this cycle</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">About</div>
+        <div class="sidebar-card-body">
+          <div class="about-row"><span class="icon">📍</span> San Francisco, CA</div>
+          <div class="about-row"><span class="icon">🏛️</span> Non-partisan tenant advocacy</div>
+          <div class="about-row"><span class="icon">🗓️</span> Active since 1970</div>
+          <div class="about-row"><span class="icon">🔗</span> <a href="#" style="color:#3b5bdb;text-decoration:none;">sftu.org</a></div>
+          <div class="about-row" style="margin-top:8px;font-size:12px;color:#9ca3af;">Group posts represent the organization's views. Individual member posts represent their own opinions.</div>
+        </div>
+      </div>
+
+    </div><!-- /sidebar -->
+
+  </div><!-- /two-col -->
+
+</div><!-- /page-wrap -->
+
+<script>
+  function showTab(name) {
+    // panels
+    document.querySelectorAll('.tab-panel').forEach(el => el.classList.remove('active'));
+    const panel = document.getElementById('tab-' + name);
+    if (panel) panel.classList.add('active');
+
+    // subnav tabs
+    document.querySelectorAll('.subnav-tab').forEach(el => el.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updatePetitionPreview() {
+    const val = document.getElementById('petition-title-input').value.trim();
+    const preview = document.getElementById('petition-preview');
+    const previewTitle = document.getElementById('petition-preview-title');
+    const btn = document.getElementById('btn-start-petition');
+    if (val.length > 8) {
+      previewTitle.textContent = val;
+      preview.classList.add('visible');
+      btn.disabled = false;
+    } else {
+      preview.classList.remove('visible');
+      btn.disabled = true;
+    }
+  }
+
+  function selectTopic(chip, label) {
+    chip.closest('.petition-topic-chips').querySelectorAll('.petition-topic-chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+  }
+
+  function filterPetitions(topic, chip) {
+    chip.closest('.petition-filter-row').querySelectorAll('.guide-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    document.querySelectorAll('#tab-petitions .petition-card').forEach(card => {
+      const topics = card.dataset.topics || '';
+      card.style.display = (topic === 'all' || topics.includes(topic)) ? '' : 'none';
+    });
+  }
+
+  function filterGuide(level, chip) {
+    document.querySelectorAll('.guide-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    document.querySelectorAll('.guide-section').forEach(s => {
+      s.style.display = (level === 'all' || s.dataset.level === level) ? '' : 'none';
+    });
+  }
+
+  function toggleVote(btn) {
+    const countEl = btn.parentElement.querySelector('.upvote-count');
+    const count = parseInt(countEl.textContent);
+    if (btn.classList.contains('voted')) {
+      btn.classList.remove('voted');
+      countEl.textContent = count - 1;
+    } else {
+      btn.classList.add('voted');
+      countEl.textContent = count + 1;
+    }
+  }
+</script>
+
+
+</body></html>
